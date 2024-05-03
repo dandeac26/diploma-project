@@ -11,6 +11,7 @@ import org.hibernate.annotations.UuidGenerator;
 import java.util.Objects;
 import java.util.UUID;
 
+@Setter
 @Getter
 @Entity
 @Table(name = "products_tb")
@@ -22,12 +23,10 @@ public class Product {
     private UUID productId;
 
 
-    @Setter
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, columnDefinition = "text CHECK (length(name) > 0)", unique = true)
     private String name;
 
-    @Setter
-    @Column(name = "price")
+    @Column(name = "price", nullable = false, columnDefinition = "double precision CHECK (price > 0)")
     private Double price;
 
     public Product(){}
