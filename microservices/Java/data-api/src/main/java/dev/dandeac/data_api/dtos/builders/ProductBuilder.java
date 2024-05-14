@@ -8,11 +8,11 @@ public class ProductBuilder {
     }
 
     public static ProductDTO toProductDTO(Product product) {
-        return new ProductDTO(product.getProductId(), product.getName(), product.getPrice());
+        return new ProductDTO(product.getProductId(), product.getName(), product.getPrice(), product.getImageUrl());
     }
 
 
     public static Product toProduct(ProductDTO productDTO) {
-        return new Product(productDTO.getName(), productDTO.getPrice());
+        return new Product(productDTO.getName(), productDTO.getPrice(), productDTO.getImageUrl());
     }
 }

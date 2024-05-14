@@ -26,12 +26,21 @@ public class ProductDTO {
     @NotNull(message = "Price cannot be null")
     private Double price;
 
+    private String imageUrl;
+
     public ProductDTO(){}
 
     public ProductDTO(UUID productId, String name, Double price) {
         this.productId = productId;
         this.name = name;
         this.price = price;
+    }
+
+    public ProductDTO(UUID productId, String name, Double price, String imageUrl) {
+        this.productId = productId;
+        this.name = name;
+        this.price = price;
+        this.imageUrl = imageUrl;
     }
 
     @Override

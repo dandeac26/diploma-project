@@ -29,11 +29,20 @@ public class Product {
     @Column(name = "price", nullable = false, columnDefinition = "double precision CHECK (price > 0)")
     private Double price;
 
+    @Column(name = "image_url")
+    private String imageUrl;
+
     public Product(){}
 
     public Product( String name, Double price) {
         this.name = name;
         this.price = price;
+    }
+
+    public Product( String name, Double price, String imageUrl) {
+        this.name = name;
+        this.price = price;
+        this.imageUrl = imageUrl;
     }
 
     @Override
