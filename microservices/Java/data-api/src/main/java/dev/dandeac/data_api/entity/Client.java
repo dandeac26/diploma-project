@@ -6,11 +6,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.util.Objects;
 import java.util.UUID;
 
+@Setter
 @Getter
 @Entity
 @Table(name = "client_tb")
@@ -33,14 +35,36 @@ public class Client {
     @Column(name = "location")
     private String location;
 
+    @Column(name = "latitude")
+    private Double latitude;
+
+    @Column(name = "longitude")
+    private Double longitude;
+
+    @Column(name = "address")
+    private String address;
+
     public Client(){}
 
-    public Client(UUID clientId, String firmName, String contactPerson, String phoneNumber, String location) {
+    public Client(UUID clientId, String firmName, String contactPerson, String phoneNumber, String location, Double latitude, Double longitude, String address) {
         this.clientId = clientId;
         this.firmName = firmName;
         this.contactPerson = contactPerson;
         this.phoneNumber = phoneNumber;
         this.location = location;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.address = address;
+    }
+
+    public Client(String firmName, String contactPerson, String phoneNumber, String location, Double latitude, Double longitude, String address) {
+        this.firmName = firmName;
+        this.contactPerson = contactPerson;
+        this.phoneNumber = phoneNumber;
+        this.location = location;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.address = address;
     }
 
     @Override
