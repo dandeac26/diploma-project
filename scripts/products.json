@@ -1,0 +1,98 @@
+[
+    {
+        "name": "Cozonac Basic",
+        "price": 20,
+        "imageUrl": "https://i.imgur.com/44PCkkU.png"
+    },
+    {
+        "name": "Cozonac cu Mac",
+        "price": 30,
+        "imageUrl": "https://i.imgur.com/GTJbSSs.png"
+    },
+    {
+        "name": "Cozonac cu Nuca",
+        "price": 30,
+        "imageUrl": "https://i.imgur.com/zPN2uWo.png"
+    },
+    {
+        "name": "Cozonac cu Rahat",
+        "price": 30,
+        "imageUrl": "https://i.imgur.com/uTdMw1c.png"
+    },
+    {
+        "name": "Cozonac cu Cacao",
+        "price": 25,
+        "imageUrl": "https://i.imgur.com/2t5MdY1.png"
+    },
+    {
+        "name": "Baigli cu Mac",
+        "price": 25,
+        "imageUrl": "https://i.imgur.com/OD3NIBU.png"
+    },
+    {
+        "name": "Baigli cu Nuca",
+        "price": 25,
+        "imageUrl": "https://i.imgur.com/OD3NIBU.png"
+    },
+    {
+        "name": "Croissant cu Cascaval",
+        "price": 4.5,
+        "imageUrl": "https://i.imgur.com/UUGDlKR.png"
+    },
+    {
+        "name": "Croissant cu Ciocolata",
+        "price": 4.5,
+        "imageUrl": "https://i.imgur.com/ZyDFSLA.png"
+    },
+    {
+        "name": "Croissant cu Vanilie si Ciocolata",
+        "price": 4.5,
+        "imageUrl": "https://i.imgur.com/RtxMZ4M.png"
+    },
+    {
+        "name": "Cuib cu Nuca",
+        "price": 3.5,
+        "imageUrl": "https://i.imgur.com/t1jQAvD.png"
+    },
+    {
+        "name": "Strudel cu Mar",
+        "price": 4.2,
+        "imageUrl": "https://i.imgur.com/otP9ZFV.png"
+    },
+    {
+        "name": "Strudel cu Vanilie",
+        "price": 4.2,
+        "imageUrl": "https://i.imgur.com/otP9ZFV.png"
+    },
+    {
+        "name": "Strudel cu Visine",
+        "price": 4.2,
+        "imageUrl": "https://i.imgur.com/otP9ZFV.png"
+    },
+    {
+        "name": "Strudel cu Ciocolata",
+        "price": 4.2,
+        "imageUrl": "https://i.imgur.com/otP9ZFV.png"
+    },
+    {
+        "name": "Strudel cu Caise",
+        "price": 4.2,
+        "imageUrl": "https://i.imgur.com/otP9ZFV.png"
+    },
+    {
+        "name": "Chifla",
+        "price": 0.6,
+        "imageUrl": "https://i.imgur.com/gg7hND7.png"
+    },
+    {
+        "name": "Bagheta",
+        "price": 0.75,
+        "imageUrl": "https://i.imgur.com/IiIP9ka.png"
+    },
+    {
+        "name": "Baton cu Mac",
+        "price": 0.55,
+        "imageUrl": "https://i.imgur.com/634bigq.png"
+    }
+    
+]
