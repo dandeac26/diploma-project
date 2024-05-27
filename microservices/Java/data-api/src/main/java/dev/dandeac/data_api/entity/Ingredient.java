@@ -11,6 +11,7 @@ import org.hibernate.annotations.UuidGenerator;
 import java.util.Objects;
 import java.util.UUID;
 
+@Setter
 @Getter
 @Entity
 @Table(name = "ingredients_tb")
@@ -20,18 +21,26 @@ public class Ingredient {
     @Column(name = "ingredient_id")
     private UUID ingredientId;
 
-    @Setter
+    @Column(name = "name")
+    private String name;
+
     @Column(name = "measurement_unit")
     private String measurementUnit;
 
-    @Setter
     @Column(name = "price")
     private Double price;
 
     public Ingredient(){}
 
-    public Ingredient(UUID ingredientId, String measurementUnit, Double price) {
+    public Ingredient(UUID ingredientId, String name, String measurementUnit, Double price) {
         this.ingredientId = ingredientId;
+        this.name = name;
+        this.measurementUnit = measurementUnit;
+        this.price = price;
+    }
+
+    public Ingredient(String name, String measurementUnit, Double price) {
+        this.name = name;
         this.measurementUnit = measurementUnit;
         this.price = price;
     }
