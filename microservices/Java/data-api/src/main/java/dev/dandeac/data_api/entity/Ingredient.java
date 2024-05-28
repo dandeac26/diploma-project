@@ -21,7 +21,7 @@ public class Ingredient {
     @Column(name = "ingredient_id")
     private UUID ingredientId;
 
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     private String name;
 
     @Column(name = "measurement_unit")

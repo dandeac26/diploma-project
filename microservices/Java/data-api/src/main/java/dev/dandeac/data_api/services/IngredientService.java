@@ -5,6 +5,7 @@ import dev.dandeac.data_api.entity.Ingredient;
 import dev.dandeac.data_api.repositories.IngredientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -22,7 +23,12 @@ public class IngredientService {
         this.ingredientRepository = ingredientRepository;
     }
 
-    public void importIngredients(MultipartFile file) throws IOException {
+    public void importIngredients(MultipartFile file) throws IOException, HttpMediaTypeNotSupportedException {
+        String originalFilename = file.getOriginalFilename();
+        if (originalFilename == null || !originalFilename.toLowerCase().endsWith(".csv")) {
+            throw new HttpMediaTypeNotSupportedException("Invalid file type. Please upload a CSV file.");
+        }
+
         try (Reader reader = new InputStreamReader(file.getInputStream())) {
             CSVReader csvReader = new CSVReader(reader);
             String[] nextRecord;
