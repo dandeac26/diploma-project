@@ -1,48 +1,73 @@
 package dev.dandeac.data_api.services;
 
-import au.com.bytecode.opencsv.CSVReader;
+import dev.dandeac.data_api.dtos.RecipeDTO;
+import dev.dandeac.data_api.dtos.builders.RecipeBuilder;
 import dev.dandeac.data_api.entity.Recipe;
 import dev.dandeac.data_api.repositories.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.HttpMediaTypeNotSupportedException;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
+
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class RecipeService {
     private final RecipeRepository recipeRepository;
 
     @Autowired
-    public RecipeService(RecipeRepository recipeRepository) {
+    public RecipeService(RecipeRepository recipeRepository){
         this.recipeRepository = recipeRepository;
     }
 
-    public void importRecipes(MultipartFile file) throws IOException, HttpMediaTypeNotSupportedException {
-        String originalFilename = file.getOriginalFilename();
-        if (originalFilename == null || !originalFilename.toLowerCase().endsWith(".csv")) {
-            throw new HttpMediaTypeNotSupportedException("Invalid file type. Please upload a CSV file.");
+    public List<RecipeDTO> findRecipes() {
+        List<Recipe> recipeList = recipeRepository.findAll();
+        return recipeList.stream()
+                .map(RecipeBuilder::toRecipeDTO)
+                .collect(Collectors.toList());
+    }
+
+    public RecipeDTO addRecipe(RecipeDTO recipeDTO) {
+
+        if (recipeRepository.existsByName(recipeDTO.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Recipe with name " + recipeDTO.getName() + " already exists");
+        }
+        Recipe recipe = RecipeBuilder.toRecipe(recipeDTO);
+        Recipe savedRecipe = recipeRepository.save(recipe);
+        return RecipeBuilder.toRecipeDTO(savedRecipe);
+    }
+
+    public void deleteRecipe(String recipeId) {
+        if (!recipeRepository.existsById(UUID.fromString(recipeId))) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Recipe with id " + recipeId + " does not exist");
+        }
+        recipeRepository.deleteById(UUID.fromString(recipeId));
+    }
+
+    public RecipeDTO updateRecipe(String recipeId, RecipeDTO recipeDTO) {
+        if (!recipeRepository.existsById(UUID.fromString(recipeId))) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Recipe with id " + recipeId + " does not exist");
         }
 
-        try (Reader reader = new InputStreamReader(file.getInputStream())) {
-            CSVReader csvReader = new CSVReader(reader);
-            String[] nextRecord;
-            while ((nextRecord = csvReader.readNext()) != null) {
-                if (nextRecord.length >= 3) {
-                    Recipe recipe = new Recipe(
-                            UUID.fromString(String.valueOf(nextRecord[0])),
-                            UUID.fromString(String.valueOf(nextRecord[1])),
-                            Double.parseDouble(String.valueOf(nextRecord[2]))
-                    );
-                    recipeRepository.save(recipe);
-                } else {
-                    // handle the case when nextRecord has less than 3 elements
-                }
-            }
+        if (recipeRepository.existsByName(recipeDTO.getName()) && !recipeRepository.findByName(recipeDTO.getName()).getRecipeId().equals(UUID.fromString(recipeId) )){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Recipe with name " + recipeDTO.getName() + " already exists");
         }
+        Recipe recipe = RecipeBuilder.toRecipe(recipeDTO);
+        recipe.setRecipeId(UUID.fromString(recipeId));
+        Recipe updatedRecipe = recipeRepository.save(recipe);
+        return RecipeBuilder.toRecipeDTO(updatedRecipe);
+    }
+
+    public RecipeDTO findRecipeById(String recipeId) {
+        Recipe recipe = recipeRepository.findById(UUID.fromString(recipeId))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Recipe with id " + recipeId + " does not exist"));
+        return RecipeBuilder.toRecipeDTO(recipe);
+    }
+
+    public void deleteAllRecipes() {
+        recipeRepository.deleteAll();
     }
 }

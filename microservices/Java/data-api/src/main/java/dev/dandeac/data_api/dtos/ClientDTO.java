@@ -22,7 +22,7 @@ public class ClientDTO {
 
     // must be phone number
     @Pattern(regexp="(^$|[0-9]{10})", message="Phone number must be exactly 10 digits")
-    @NotNull(message = "Price cannot be null")
+    @NotNull(message = "Phone number cannot be null")
     private String phoneNumber;
 
     private String location;

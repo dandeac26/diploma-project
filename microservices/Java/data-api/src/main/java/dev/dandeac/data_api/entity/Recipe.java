@@ -7,6 +7,7 @@ import lombok.Setter;
 import java.util.Objects;
 import java.util.UUID;
 
+@Setter
 @Getter
 @Entity
 @Table(name = "recipes_tb")
@@ -15,7 +16,7 @@ public class Recipe {
     @EmbeddedId
     private RecipeId id;
 
-    @Setter
+
     @Column(name = "quantity")
     private Double quantity;
 

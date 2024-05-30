@@ -27,22 +27,18 @@ public class Ingredient {
     @Column(name = "measurement_unit")
     private String measurementUnit;
 
-    @Column(name = "price")
-    private Double price;
 
     public Ingredient(){}
 
-    public Ingredient(UUID ingredientId, String name, String measurementUnit, Double price) {
+    public Ingredient(UUID ingredientId, String name, String measurementUnit) {
         this.ingredientId = ingredientId;
         this.name = name;
         this.measurementUnit = measurementUnit;
-        this.price = price;
     }
 
-    public Ingredient(String name, String measurementUnit, Double price) {
+    public Ingredient(String name, String measurementUnit) {
         this.name = name;
         this.measurementUnit = measurementUnit;
-        this.price = price;
     }
 
     @Override
@@ -50,11 +46,11 @@ public class Ingredient {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Ingredient that = (Ingredient) o;
-        return Objects.equals(ingredientId, that.ingredientId) && Objects.equals(measurementUnit, that.measurementUnit) && Objects.equals(price, that.price);
+        return Objects.equals(ingredientId, that.ingredientId) && Objects.equals(measurementUnit, that.measurementUnit);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ingredientId, measurementUnit, price);
+        return Objects.hash(ingredientId, measurementUnit);
     }
 }

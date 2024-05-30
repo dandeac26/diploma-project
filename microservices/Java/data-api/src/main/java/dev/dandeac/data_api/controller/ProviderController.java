@@ -1,8 +1,7 @@
 package dev.dandeac.data_api.controller;
 
-import dev.dandeac.data_api.dtos.IngredientDTO;
-import dev.dandeac.data_api.services.IngredientService;
-
+import dev.dandeac.data_api.dtos.ProviderDTO;
+import dev.dandeac.data_api.services.ProviderService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -10,33 +9,31 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
-
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/ingredients")
-public class IngredientController {
-
-    private final IngredientService ingredientService;
+@RequestMapping("/providers")
+public class ProviderController {
+    private final ProviderService providerService;
 
     @Autowired
-    public IngredientController(IngredientService ingredientService){
-        this.ingredientService = ingredientService;
+    public ProviderController(ProviderService providerService){
+        this.providerService = providerService;
     }
 
     @GetMapping()
-    public ResponseEntity<List<IngredientDTO>> getIngredients() {
-        List<IngredientDTO> dtos = ingredientService.findIngredients();
+    public ResponseEntity<List<ProviderDTO>> getProviders() {
+        List<ProviderDTO> dtos = providerService.findProviders();
         return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
 
-    @GetMapping("/{ingredientId}")
-    public ResponseEntity<?> getIngredient(@PathVariable String ingredientId) {
+    @GetMapping("/{providerId}")
+    public ResponseEntity<?> getProvider(@PathVariable String providerId) {
         try {
-            IngredientDTO dto = ingredientService.findIngredientById(ingredientId);
+            ProviderDTO dto = providerService.findProviderById(providerId);
             return new ResponseEntity<>(dto, HttpStatus.OK);
         } catch (ResponseStatusException e) {
             return new ResponseEntity<>(e.getReason(), e.getStatusCode());
@@ -44,9 +41,9 @@ public class IngredientController {
     }
 
     @PostMapping()
-    public ResponseEntity<?> addIngredient(@Valid @RequestBody IngredientDTO ingredientDTO) {
+    public ResponseEntity<?> addProvider(@Valid @RequestBody ProviderDTO providerDTO) {
         try {
-            IngredientDTO dto = ingredientService.addIngredient(ingredientDTO);
+            ProviderDTO dto = providerService.addProvider(providerDTO);
             return new ResponseEntity<>(dto, HttpStatus.CREATED);
         } catch (ResponseStatusException e) {
             return new ResponseEntity<>(e.getReason(), e.getStatusCode());
@@ -62,20 +59,20 @@ public class IngredientController {
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
 
-    @DeleteMapping("/{ingredientId}")
-    public ResponseEntity<String> deleteIngredient(@PathVariable String ingredientId) {
+    @DeleteMapping("/{providerId}")
+    public ResponseEntity<String> deleteProvider(@PathVariable String providerId) {
         try {
-            ingredientService.deleteIngredient(ingredientId);
-            return new ResponseEntity<>("Ingredient with id " + ingredientId + " was deleted.", HttpStatus.NO_CONTENT);
+            providerService.deleteProvider(providerId);
+            return new ResponseEntity<>("Provider with id " + providerId + " was deleted.", HttpStatus.NO_CONTENT);
         } catch (ResponseStatusException e) {
             return new ResponseEntity<>(e.getReason(), e.getStatusCode());
         }
     }
 
-    @PutMapping("/{ingredientId}")
-    public ResponseEntity<?> updateIngredient(@PathVariable String ingredientId,@Valid @RequestBody IngredientDTO ingredientDTO) {
+    @PutMapping("/{providerId}")
+    public ResponseEntity<?> updateProvider(@PathVariable String providerId,@Valid @RequestBody ProviderDTO providerDTO) {
         try {
-            IngredientDTO dto = ingredientService.updateIngredient(ingredientId, ingredientDTO);
+            ProviderDTO dto = providerService.updateProvider(providerId, providerDTO);
             return new ResponseEntity<>(dto, HttpStatus.OK);
         } catch (ResponseStatusException e) {
             return new ResponseEntity<>(e.getReason(), e.getStatusCode());
@@ -83,8 +80,8 @@ public class IngredientController {
     }
 
     @DeleteMapping()
-    public ResponseEntity<String> deleteAllIngredients() {
-        ingredientService.deleteAllIngredients();
-        return new ResponseEntity<>("All ingredients were deleted.", HttpStatus.NO_CONTENT);
+    public ResponseEntity<String> deleteAllProviders() {
+        providerService.deleteAllProviders();
+        return new ResponseEntity<>("All providers were deleted.", HttpStatus.NO_CONTENT);
     }
 }
