@@ -44,9 +44,6 @@ public class IngredientService {
                     // handle the case when nextRecord has less than 3 elements
                 }
             }
-
-
-
         }
     }
 }
