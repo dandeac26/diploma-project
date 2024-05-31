@@ -8,11 +8,11 @@ public class IngredientBuilder {
     }
 
     public static IngredientDTO toIngredientDTO(Ingredient ingredient) {
-        return new IngredientDTO(ingredient.getIngredientId(), ingredient.getName(), ingredient.getMeasurementUnit());
+        return new IngredientDTO(ingredient.getIngredientId(), ingredient.getName(), ingredient.getMeasurementUnit(), ingredient.getPackaging());
     }
 
 
     public static Ingredient toIngredient(IngredientDTO ingredientDTO) {
-        return new Ingredient(ingredientDTO.getName(), ingredientDTO.getMeasurementUnit());
+        return new Ingredient(ingredientDTO.getName(), ingredientDTO.getMeasurementUnit(), ingredientDTO.getPackaging());
     }
 }

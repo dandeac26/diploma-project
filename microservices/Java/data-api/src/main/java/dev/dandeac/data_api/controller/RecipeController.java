@@ -1,6 +1,7 @@
 package dev.dandeac.data_api.controller;
 
 import dev.dandeac.data_api.dtos.RecipeDTO;
+import dev.dandeac.data_api.entity.RecipeId;
 import dev.dandeac.data_api.services.RecipeService;
 import dev.dandeac.data_api.services.RecipeService;
 import jakarta.validation.Valid;
@@ -16,6 +17,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
@@ -29,16 +32,28 @@ public class RecipeController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<RecipeDTO>> getRecipes() {
+    public ResponseEntity<Map<UUID, List<RecipeDTO>>> getRecipes() {
         List<RecipeDTO> dtos = recipeService.findRecipes();
-        return new ResponseEntity<>(dtos, HttpStatus.OK);
+        Map<UUID, List<RecipeDTO>> groupedDtos = dtos.stream()
+                .collect(Collectors.groupingBy(RecipeDTO::getProductId));
+        return new ResponseEntity<>(groupedDtos, HttpStatus.OK);
     }
 
-    @GetMapping("/{recipeId}")
-    public ResponseEntity<?> getRecipe(@PathVariable String recipeId) {
+    @GetMapping("/{productId}/{ingredientId}")
+    public ResponseEntity<?> getRecipe(@PathVariable String productId, @PathVariable String ingredientId) {
         try {
-            RecipeDTO dto = recipeService.findRecipeById(recipeId);
+            RecipeDTO dto = recipeService.findRecipeById(new RecipeId(UUID.fromString(productId), UUID.fromString(ingredientId)));
             return new ResponseEntity<>(dto, HttpStatus.OK);
+        } catch (ResponseStatusException e) {
+            return new ResponseEntity<>(e.getReason(), e.getStatusCode());
+        }
+    }
+
+    @GetMapping("/{productId}")
+    public ResponseEntity<?> getRecipesByProductId(@PathVariable String productId) {
+        try {
+            List<RecipeDTO> dtos = recipeService.findRecipeByProductId(productId);
+            return new ResponseEntity<>(dtos, HttpStatus.OK);
         } catch (ResponseStatusException e) {
             return new ResponseEntity<>(e.getReason(), e.getStatusCode());
         }
@@ -63,20 +78,30 @@ public class RecipeController {
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
 
-    @DeleteMapping("/{recipeId}")
-    public ResponseEntity<String> deleteRecipe(@PathVariable String recipeId) {
+    @DeleteMapping("/{productId}/{ingredientId}")
+    public ResponseEntity<String> deleteRecipe(@PathVariable String productId, @PathVariable String ingredientId) {
         try {
-            recipeService.deleteRecipe(recipeId);
-            return new ResponseEntity<>("Recipe with id " + recipeId + " was deleted.", HttpStatus.NO_CONTENT);
+            recipeService.deleteRecipe(productId, ingredientId);
+            return new ResponseEntity<>("Recipe of product id  " + productId + " and ingredient id " + ingredientId + " was deleted.", HttpStatus.NO_CONTENT);
         } catch (ResponseStatusException e) {
             return new ResponseEntity<>(e.getReason(), e.getStatusCode());
         }
     }
 
-    @PutMapping("/{recipeId}")
-    public ResponseEntity<?> updateRecipe(@PathVariable String recipeId,@Valid @RequestBody RecipeDTO recipeDTO) {
+    @DeleteMapping("/{productId}")
+    public ResponseEntity<String> deleteProductRecipe(@PathVariable String productId) {
         try {
-            RecipeDTO dto = recipeService.updateRecipe(recipeId, recipeDTO);
+            recipeService.deleteProductRecipe(productId);
+            return new ResponseEntity<>("Recipe of product id  " + productId + " was deleted.", HttpStatus.NO_CONTENT);
+        } catch (ResponseStatusException e) {
+            return new ResponseEntity<>(e.getReason(), e.getStatusCode());
+        }
+    }
+
+    @PutMapping("/{productId}/{ingredientId}")
+    public ResponseEntity<?> updateRecipe(@PathVariable String productId, @PathVariable String ingredientId, @Valid @RequestBody RecipeDTO recipeDTO) {
+        try {
+            RecipeDTO dto = recipeService.updateRecipe(new RecipeId(UUID.fromString(productId),UUID.fromString(ingredientId)), recipeDTO);
             return new ResponseEntity<>(dto, HttpStatus.OK);
         } catch (ResponseStatusException e) {
             return new ResponseEntity<>(e.getReason(), e.getStatusCode());

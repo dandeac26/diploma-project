@@ -22,8 +22,8 @@ public class Recipe {
 
     public Recipe(){}
 
-    public Recipe(UUID ingredientId, UUID productId, Double quantity) {
-        this.id = new RecipeId(ingredientId, productId);
+    public Recipe(RecipeId id, Double quantity) {
+        this.id = id;
         this.quantity = quantity;
     }
 }

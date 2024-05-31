@@ -17,9 +17,16 @@ public class RecipeId implements Serializable {
 
     public RecipeId() {}
 
-    public RecipeId(UUID ingredientId, UUID productId) {
+    public RecipeId(UUID productId, UUID ingredientId) {
         this.ingredientId = ingredientId;
         this.productId = productId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof RecipeId recipeId)) return false;
+        return getIngredientId().equals(recipeId.getIngredientId()) && getProductId().equals(recipeId.getProductId());
     }
 
 }

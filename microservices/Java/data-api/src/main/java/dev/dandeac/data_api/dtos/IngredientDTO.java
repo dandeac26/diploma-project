@@ -20,12 +20,17 @@ public class IngredientDTO {
     @NotEmpty(message = "Measurement unit cannot be empty")
     private String measurementUnit;
 
+    @NotNull(message = "Packaging cannot be null")
+    @NotEmpty(message = "Packaging cannot be empty")
+    private String packaging;
+
     public IngredientDTO() {
     }
 
-    public IngredientDTO(UUID ingredientId, String name, String measurementUnit) {
+    public IngredientDTO(UUID ingredientId, String name, String measurementUnit, String packaging) {
         this.ingredientId = ingredientId;
         this.name = name;
         this.measurementUnit = measurementUnit;
+        this.packaging = packaging;
     }
 }

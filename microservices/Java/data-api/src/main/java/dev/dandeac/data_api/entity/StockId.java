@@ -22,4 +22,11 @@ public class StockId implements Serializable {
             this.ingredientId = ingredientId;
             this.providerId = providerId;
         }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof StockId stockId)) return false;
+            return getIngredientId().equals(stockId.getIngredientId()) && getProviderId().equals(stockId.getProviderId());
+        }
 }

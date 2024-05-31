@@ -17,7 +17,7 @@ public class Stock {
     @Id
     @UuidGenerator(style=UuidGenerator.Style.RANDOM)
     @Column(name = "stocks_id")
-    private StockId stockId;
+    private StockId id;
 
     @Column(name = "quantity")
     private Integer quantity;
@@ -28,8 +28,8 @@ public class Stock {
 
     public Stock(){}
 
-    public Stock(UUID ingredientId, UUID providerId, Integer quantity, Double price) {
-        this.stockId = new StockId(ingredientId, providerId);
+    public Stock(StockId id, Integer quantity, Double price) {
+        this.id = id;
         this.quantity = quantity;
         this.price = price;
     }
@@ -39,11 +39,11 @@ public class Stock {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Stock stock = (Stock) o;
-        return Objects.equals(stockId, stock.stockId) && Objects.equals(quantity, stock.quantity) && Objects.equals(price, stock.price) ;
+        return Objects.equals(id, stock.id) && Objects.equals(quantity, stock.quantity) && Objects.equals(price, stock.price) ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(stockId, quantity, price);
+        return Objects.hash(id, quantity, price);
     }
 }
