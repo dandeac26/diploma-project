@@ -1,0 +1,46 @@
+[
+    {
+        "quantity": 100,
+        "price": 23
+    },
+    {
+        "quantity": 200,
+        "price": 18
+    },
+    {
+        "quantity": 300,
+        "price": 15
+    },
+    {
+        "quantity": 500,
+        "price": 10
+    },
+    {
+        "quantity": 1000,
+        "price": 8.2
+    },
+    {
+        "quantity": 324,
+        "price": 6.55
+    },
+    {
+        "quantity": 555,
+        "price": 53.4
+    },
+    {
+        "quantity": 922,
+        "price": 4.2
+    },
+    {
+        "quantity": 98,
+        "price": 7.55
+    },
+    {
+        "quantity": 595,
+        "price": 553.46
+    },
+    {
+        "quantity": 129,
+        "price": 22.22
+    }
+]

@@ -17,16 +17,24 @@ import java.util.stream.Collectors;
 @Service
 public class StockService {
     private final StockRepository stockRepository;
+    // inject providerService and ingredientService
+    private final ProviderService providerService;
+    private final IngredientService ingredientService;
+
+    private final StockBuilder stockBuilder;
 
     @Autowired
-    public StockService(StockRepository stockRepository){
+    public StockService(StockRepository stockRepository, ProviderService providerService, IngredientService ingredientService, StockBuilder stockBuilder){
         this.stockRepository = stockRepository;
+        this.providerService = providerService;
+        this.ingredientService = ingredientService;
+        this.stockBuilder = stockBuilder;
     }
 
     public List<StockDTO> findStocks() {
         List<Stock> stockList = stockRepository.findAll();
         return stockList.stream()
-                .map(StockBuilder::toStockDTO)
+                .map(stockBuilder::toStockDTO)
                 .collect(Collectors.toList());
     }
 
@@ -35,9 +43,19 @@ public class StockService {
         if (stockRepository.existsByIdProviderIdAndIdIngredientId(stockDTO.getProviderId(), stockDTO.getIngredientId())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Stock for product " + stockDTO.getIngredientId() + " already exists");
         }
-        Stock stock = StockBuilder.toStock(stockDTO);
+
+        if (!ingredientService.existsById(stockDTO.getIngredientId())) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Ingredient with id " + stockDTO.getIngredientId() + " does not exist");
+        }
+
+        // Check if providerId exists
+        if (!providerService.existsById(stockDTO.getProviderId())) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Provider with id " + stockDTO.getProviderId() + " does not exist");
+        }
+
+        Stock stock = stockBuilder.toStock(stockDTO);
         Stock savedStock = stockRepository.save(stock);
-        return StockBuilder.toStockDTO(savedStock);
+        return stockBuilder.toStockDTO(savedStock);
     }
 
     public void deleteStock(String ingredientId, String providerId) {
@@ -61,16 +79,16 @@ public class StockService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Stock with id " + stockId + " does not exist");
         }
 
-        Stock stock = StockBuilder.toStock(stockDTO);
+        Stock stock = stockBuilder.toStock(stockDTO);
         stock.setId(stockId);
         Stock updatedStock = stockRepository.save(stock);
-        return StockBuilder.toStockDTO(updatedStock);
+        return stockBuilder.toStockDTO(updatedStock);
     }
 
     public List<StockDTO> findStockByIngredientId(String ingredientId) {
         List<Stock> stocks = stockRepository.findByIdIngredientId(UUID.fromString(ingredientId));
         return stocks.stream()
-                .map(StockBuilder::toStockDTO)
+                .map(stockBuilder::toStockDTO)
                 .collect(Collectors.toList());
     }
 
@@ -80,6 +98,6 @@ public class StockService {
     
     public StockDTO findStockById(StockId stockId) {
         Stock stock = stockRepository.findById(stockId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Stock with id " + stockId + " does not exist"));
-        return StockBuilder.toStockDTO(stock);
+        return stockBuilder.toStockDTO(stock);
     }
 }

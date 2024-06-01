@@ -25,13 +25,27 @@ public class StockDTO {
     @Positive(message = "Price must be positive")
     private Double price;
 
+    private String ingredientName;
+
+    private String providerName;
+
+
     public StockDTO() {}
 
-    public StockDTO(UUID ingredientId, UUID providerId, Integer quantity, Double price) {
+//    public StockDTO(UUID ingredientId, UUID providerId, Integer quantity, Double price) {
+//        this.ingredientId = ingredientId;
+//        this.providerId = providerId;
+//        this.quantity = quantity;
+//        this.price = price;
+//    }
+
+    public StockDTO(UUID ingredientId, UUID providerId, Integer quantity, Double price, String ingredientName, String providerName) {
         this.ingredientId = ingredientId;
         this.providerId = providerId;
         this.quantity = quantity;
         this.price = price;
+        this.ingredientName = ingredientName;
+        this.providerName = providerName;
     }
 
     public StockDTO(Integer quantity, Double price) {

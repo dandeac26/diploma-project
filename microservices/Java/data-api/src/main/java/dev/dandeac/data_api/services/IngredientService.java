@@ -71,4 +71,13 @@ public class IngredientService {
     public void deleteAllIngredients() {
         ingredientRepository.deleteAll();
     }
+
+    public boolean existsById(UUID ingredientId) {
+        return ingredientRepository.existsById(ingredientId);
+    }
+
+    public Ingredient findById(UUID ingredientId) {
+        return ingredientRepository.findById(ingredientId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Ingredient with id " + ingredientId + " does not exist"));
+    }
 }

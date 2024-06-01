@@ -1,0 +1,69 @@
+
+[
+    {
+        "providerId":"",
+        "name": "prov1",
+        "phoneNumber": "1234567891"
+    },
+    {
+        "providerId":"",
+        "name": "provi SRL",
+        "phoneNumber": "1234567891"
+    },
+    {
+        "providerId":"",
+        "name": "other SRL",
+        "phoneNumber": "6234567891"
+    },
+    {
+        "providerId":"",
+        "name": "Fresh Supplies",
+        "phoneNumber": "2234567892"
+    },
+    {
+        "providerId":"",
+        "name": "Global Goods",
+        "phoneNumber": "3234567893"
+    },
+    {
+        "providerId":"",
+        "name": "Quality Ingredients",
+        "phoneNumber": "4234567894"
+    },
+    {
+        "providerId":"",
+        "name": "Organic Farms",
+        "phoneNumber": "5234567895"
+    },
+    {
+        "providerId":"",
+        "name": "Food Distributors Inc.",
+        "phoneNumber": "7234567896"
+    },
+    {
+        "providerId":"",
+        "name": "Wholesale Foods",
+        "phoneNumber": "8234567897"
+    },
+    {
+        "providerId":"",
+        "name": "Green Market",
+        "phoneNumber": "9234567898"
+    },
+    {
+        "providerId":"",
+        "name": "Local Harvest",
+        "phoneNumber": "1334567890"
+    },
+    {
+        "providerId":"",
+        "name": "Sunshine Suppliers",
+        "phoneNumber": "2334567890"
+    },
+    {
+        "providerId":"",
+        "name": "Culinary Essentials",
+        "phoneNumber": "3434567890"
+    }
+]
+

@@ -69,4 +69,13 @@ public class ProviderService {
     public void deleteAllProviders() {
         providerRepository.deleteAll();
     }
+
+    public boolean existsById(UUID providerId) {
+        return providerRepository.existsById(providerId);
+    }
+
+    public Provider findById(UUID providerId) {
+        return providerRepository.findById(providerId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Provider with id " + providerId + " does not exist"));
+    }
 }

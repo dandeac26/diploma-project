@@ -1,0 +1,81 @@
+[
+    {
+        "ingredientId":"",
+        "name": "eggs",
+        "measurementUnit": "pieces",
+        "packaging": "batches"
+    },
+    {
+        "ingredientId":"",
+        "name": "sugar",
+        "measurementUnit": "grams",
+        "packaging": "batches"
+    },
+    {
+        "ingredientId":"",
+        "name": "salt",
+        "measurementUnit": "grams",
+        "packaging": "bags"
+    },
+    {
+        "ingredientId":"",
+        "name": "flour",
+        "measurementUnit": "kilograms",
+        "packaging": "sacks"
+    },
+    {
+        "ingredientId":"",
+        "name": "butter",
+        "measurementUnit": "grams",
+        "packaging": "blocks"
+    },
+    {
+        "ingredientId":"",
+        "name": "milk",
+        "measurementUnit": "liters",
+        "packaging": "cartons"
+    },
+    {
+        "ingredientId":"",
+        "name": "baking powder",
+        "measurementUnit": "grams",
+        "packaging": "tins"
+    },
+    {
+        "ingredientId":"",
+        "name": "cocoa powder",
+        "measurementUnit": "grams",
+        "packaging": "bags"
+    },
+    {
+        "ingredientId":"",
+        "name": "vanilla extract",
+        "measurementUnit": "milliliters",
+        "packaging": "bottles"
+    },
+    {
+        "ingredientId":"",
+        "name": "yeast",
+        "measurementUnit": "grams",
+        "packaging": "sachets"
+    },
+    {
+        "ingredientId":"",
+        "name": "olive oil",
+        "measurementUnit": "liters",
+        "packaging": "bottles"
+    },
+    {
+        "ingredientId":"",
+        "name": "honey",
+        "measurementUnit": "grams",
+        "packaging": "jars"
+    },
+    {
+        "ingredientId":"",
+        "name": "cornstarch",
+        "measurementUnit": "grams",
+        "packaging": "boxes"
+    }
+]
+
