@@ -9,10 +9,11 @@ public class OrderBuilder {
     }
 
     public static OrderDTO toOrderDTO(Order order) {
-        return new OrderDTO(order.getOrderId(), order.getClientId(), order.getLocation(), order.getDeliveryDate(), order.getDeliveryTime(), order.getPrice());
+        return new OrderDTO(order.getOrderId(), order.getClientId(), order.getDeliveryNeeded(), order.getCompletionDate(), order.getCompletionTime(), order.getPrice());
     }
 
-    public static Order toEntity(OrderDetailsDTO orderDetailsDTO) {
-        return new Order(orderDetailsDTO.getLocation(), orderDetailsDTO.getDeliveryDate(), orderDetailsDTO.getDeliveryTime(), orderDetailsDTO.getPrice());
+
+    public static Order toOrder(OrderDTO orderDTO) {
+        return new Order(orderDTO.getOrderId(), orderDTO.getClientId(), orderDTO.getDeliveryNeeded(), orderDTO.getCompletionDate(), orderDTO.getCompletionTime(), orderDTO.getPrice());
     }
 }

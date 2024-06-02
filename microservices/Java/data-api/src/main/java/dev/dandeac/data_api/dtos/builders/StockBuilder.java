@@ -72,6 +72,7 @@ public class StockBuilder {
         stockDTO.setProviderId(stock.getId().getProviderId());
         stockDTO.setQuantity(stock.getQuantity());
         stockDTO.setPrice(stock.getPrice());
+        stockDTO.setMaxQuantity(stock.getMaxQuantity());
 
         Ingredient ingredient = ingredientService.findById(stock.getId().getIngredientId());
         Provider provider = providerService.findById(stock.getId().getProviderId());
@@ -83,6 +84,6 @@ public class StockBuilder {
 
     public Stock toStock(StockDTO stockDTO) {
         StockId id = new StockId(stockDTO.getIngredientId(), stockDTO.getProviderId());
-        return new Stock(id, stockDTO.getQuantity(), stockDTO.getPrice());
+        return new Stock(id, stockDTO.getQuantity(), stockDTO.getPrice(), stockDTO.getMaxQuantity());
     }
 }

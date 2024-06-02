@@ -26,12 +26,16 @@ public class Stock {
     @Column(name = "price")
     private Double price;
 
+    @Column(name = "max_quantity")
+    private Integer maxQuantity;
+
     public Stock(){}
 
-    public Stock(StockId id, Integer quantity, Double price) {
+    public Stock(StockId id, Integer quantity, Double price, Integer maxQuantity) {
         this.id = id;
         this.quantity = quantity;
         this.price = price;
+        this.maxQuantity = maxQuantity;
     }
 
     @Override
@@ -39,11 +43,11 @@ public class Stock {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Stock stock = (Stock) o;
-        return Objects.equals(id, stock.id) && Objects.equals(quantity, stock.quantity) && Objects.equals(price, stock.price) ;
+        return Objects.equals(id, stock.id) && Objects.equals(quantity, stock.quantity) && Objects.equals(price, stock.price) && Objects.equals(maxQuantity, stock.maxQuantity);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, quantity, price);
+        return Objects.hash(id, quantity, price, maxQuantity);
     }
 }

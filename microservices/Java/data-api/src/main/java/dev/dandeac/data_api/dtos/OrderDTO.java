@@ -2,6 +2,9 @@ package dev.dandeac.data_api.dtos;
 
 
 import dev.dandeac.data_api.entity.Client;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,51 +20,61 @@ public class OrderDTO {
 
     private UUID orderId;
 
+    @NotNull(message = "clientId cannot be null")
+    @NotEmpty(message = "clientId cannot be empty")
     private UUID clientId;
 
-    private Client client;
+    // deliveryNeeded can only be Yes/No
+    @NotNull(message = "deliveryNeeded cannot be null")
+    private Boolean deliveryNeeded;
 
-    private String location;
+    @NotNull(message = "completionDate cannot be null")
+    private Date completionDate;
 
-    private Date deliveryDate;
+    private Time completionTime;
 
-    private Time deliveryTime;
-
+    @NotNull(message = "price cannot be null")
+    @Positive(message = "price must be positive")
     private Double price;
+
+
+    private String clientName;
+
+    private String clientLocation;
+
 
     public OrderDTO(){}
 
-    public OrderDTO(UUID orderId, UUID clientId, Client client, String location, Date deliveryDate, Time deliveryTime, Double price) {
+    public OrderDTO(UUID orderId, UUID clientId, Boolean deliveryNeeded, Date completionDate, Time completionTime, Double price) {
         this.orderId = orderId;
         this.clientId = clientId;
-        this.client = client;
-        this.location = location;
-        this.deliveryDate = deliveryDate;
-        this.deliveryTime = deliveryTime;
+        this.deliveryNeeded = deliveryNeeded;
+        this.completionDate = completionDate;
+        this.completionTime = completionTime;
         this.price = price;
     }
 
-    public OrderDTO(UUID orderId, UUID clientId, String location, Date deliveryDate, Time deliveryTime, Double price) {
+    public OrderDTO(UUID orderId, UUID clientId, Boolean deliveryNeeded, Date completionDate, Time completionTime, Double price, String clientName, String clientLocation) {
         this.orderId = orderId;
         this.clientId = clientId;
-        this.location = location;
-        this.deliveryDate = deliveryDate;
-        this.deliveryTime = deliveryTime;
+        this.deliveryNeeded = deliveryNeeded;
+        this.completionDate = completionDate;
+        this.completionTime = completionTime;
         this.price = price;
+        this.clientName = clientName;
+        this.clientLocation = clientLocation;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        OrderDTO orderDTO = (OrderDTO) o;
-        return Objects.equals(location, orderDTO.location) &&
-                Objects.equals(deliveryDate, orderDTO.deliveryDate) &&
-                Objects.equals(deliveryTime, orderDTO.deliveryTime) &&
-                Objects.equals(price, orderDTO.price);
+        OrderDTO order = (OrderDTO) o;
+        return Objects.equals(orderId, order.orderId) && Objects.equals(clientId, order.clientId) && Objects.equals(deliveryNeeded, order.deliveryNeeded) && Objects.equals(completionDate, order.completionDate) && Objects.equals(completionTime, order.completionTime) && Objects.equals(price, order.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(location, deliveryDate, deliveryTime, price);
+        return Objects.hash(orderId, clientId, deliveryNeeded, completionDate, completionTime, price);
     }
 }
