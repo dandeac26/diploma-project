@@ -1,46 +1,98 @@
 [
     {
         "quantity": 100,
-        "price": 23
+        "price": 23,
+        "maxQuantity": 400
     },
     {
         "quantity": 200,
-        "price": 18
+        "price": 18,
+        "maxQuantity": 330
+        
     },
     {
         "quantity": 300,
-        "price": 15
+        "price": 15,
+        "maxQuantity": 500
     },
     {
-        "quantity": 500,
-        "price": 10
+        "quantity": 990,
+        "price": 10,
+        "maxQuantity": 1000
     },
     {
         "quantity": 1000,
-        "price": 8.2
+        "price": 8.2,
+        "maxQuantity": 1000
     },
     {
         "quantity": 324,
-        "price": 6.55
+        "price": 6.55,
+        "maxQuantity": 676
     },
     {
         "quantity": 555,
-        "price": 53.4
+        "price": 53.4,
+        "maxQuantity": 888
     },
     {
         "quantity": 922,
-        "price": 4.2
+        "price": 4.2,
+        "maxQuantity": 1000
     },
     {
         "quantity": 98,
-        "price": 7.55
+        "price": 7.55,
+        "maxQuantity": 1000
     },
     {
         "quantity": 595,
-        "price": 553.46
+        "price": 553.46,
+        "maxQuantity": 1000
     },
     {
         "quantity": 129,
-        "price": 22.22
+        "price": 22.22,
+        "maxQuantity": 1000
+    },
+    {
+        "quantity": 500,
+        "price": 10,
+        "maxQuantity": 505
+    },
+    {
+        "quantity": 1000,
+        "price": 8.2,
+        "maxQuantity": 1000
+    },
+    {
+        "quantity": 324,
+        "price": 6.55,
+        "maxQuantity": 600
+    },
+    {
+        "quantity": 555,
+        "price": 53.4,
+        "maxQuantity": 700
+    },
+    {
+        "quantity": 922,
+        "price": 4.2,
+        "maxQuantity": 1000
+    },
+    {
+        "quantity": 98,
+        "price": 7.55,
+        "maxQuantity": 300
+    },
+    {
+        "quantity": 595,
+        "price": 553.46,
+        "maxQuantity": 1000
+    },
+    {
+        "quantity": 129,
+        "price": 22.22,
+        "maxQuantity": 300
     }
 ]

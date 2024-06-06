@@ -65,5 +65,29 @@
         "name": "Culinary Essentials",
         "phoneNumber": "3434567890"
     }
+    ,
+    {
+        "providerId":"",
+        "name": "ABC",
+        "phoneNumber": "3434567890"
+    }
+    ,
+    {
+        "providerId":"",
+        "name": "tesing laboratory",
+        "phoneNumber": "3434567890"
+    }
+    ,
+    {
+        "providerId":"",
+        "name": "anything good",
+        "phoneNumber": "3434567890"
+    }
+    ,
+    {
+        "providerId":"",
+        "name": "abc Essentials",
+        "phoneNumber": "3434567890"
+    }
 ]
 
