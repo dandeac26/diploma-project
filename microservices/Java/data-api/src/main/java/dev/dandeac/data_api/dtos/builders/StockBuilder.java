@@ -78,6 +78,7 @@ public class StockBuilder {
         Provider provider = providerService.findById(stock.getId().getProviderId());
         stockDTO.setIngredientName(ingredient.getName());
         stockDTO.setProviderName(provider.getName());
+        stockDTO.setPackaging(ingredient.getPackaging());
 
         return stockDTO;
     }

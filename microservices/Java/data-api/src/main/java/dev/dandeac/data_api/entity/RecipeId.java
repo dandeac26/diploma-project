@@ -28,5 +28,4 @@ public class RecipeId implements Serializable {
         if (!(o instanceof RecipeId recipeId)) return false;
         return getIngredientId().equals(recipeId.getIngredientId()) && getProductId().equals(recipeId.getProductId());
     }
-
 }

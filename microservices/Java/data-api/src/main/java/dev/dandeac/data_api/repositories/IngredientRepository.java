@@ -8,4 +8,6 @@ import java.util.UUID;
 public interface IngredientRepository extends JpaRepository<Ingredient, UUID> {
     boolean existsByName(String name);
     Ingredient findByName(String name);
+
+    boolean existsByIngredientId(UUID ingredientId);
 }

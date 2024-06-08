@@ -4,6 +4,7 @@ import dev.dandeac.data_api.dtos.RecipeDTO;
 import dev.dandeac.data_api.dtos.builders.RecipeBuilder;
 import dev.dandeac.data_api.entity.Recipe;
 import dev.dandeac.data_api.entity.RecipeId;
+import dev.dandeac.data_api.repositories.IngredientRepository;
 import dev.dandeac.data_api.repositories.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,27 +19,35 @@ import java.util.stream.Collectors;
 @Service
 public class RecipeService {
     private final RecipeRepository recipeRepository;
+    private final IngredientRepository ingredientRepository;
+    private final RecipeBuilder recipeBuilder;
 
     @Autowired
-    public RecipeService(RecipeRepository recipeRepository){
+    public RecipeService(RecipeRepository recipeRepository, RecipeBuilder recipeBuilder, IngredientRepository ingredientRepository){
         this.recipeRepository = recipeRepository;
+        this.ingredientRepository = ingredientRepository;
+        this.recipeBuilder = recipeBuilder;
     }
 
     public List<RecipeDTO> findRecipes() {
         List<Recipe> recipeList = recipeRepository.findAll();
         return recipeList.stream()
-                .map(RecipeBuilder::toRecipeDTO)
+                .map(recipeBuilder::toRecipeDTO)
                 .collect(Collectors.toList());
     }
 
     public RecipeDTO addRecipe(RecipeDTO recipeDTO) {
 
         if (recipeRepository.existsByIdIngredientIdAndIdProductId(recipeDTO.getIngredientId(), recipeDTO.getProductId())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Recipe for product " + recipeDTO.getProductId() + " already exists");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Recipe for product " + recipeDTO.getProductId() + " with same ingredient already exists");
+        }
+        // if ingredient with ingredientId does not exist in ingredient table
+        if (!ingredientRepository.existsByIngredientId(recipeDTO.getIngredientId())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Ingredient with id " + recipeDTO.getIngredientId() + " does not exist");
         }
         Recipe recipe = RecipeBuilder.toRecipe(recipeDTO);
         Recipe savedRecipe = recipeRepository.save(recipe);
-        return RecipeBuilder.toRecipeDTO(savedRecipe);
+        return recipeBuilder.toRecipeDTO(savedRecipe);
     }
 
     public void deleteRecipe(String productId, String ingredientId) {
@@ -65,13 +74,13 @@ public class RecipeService {
         Recipe recipe = RecipeBuilder.toRecipe(recipeDTO);
         recipe.setId(recipeId);
         Recipe updatedRecipe = recipeRepository.save(recipe);
-        return RecipeBuilder.toRecipeDTO(updatedRecipe);
+        return recipeBuilder.toRecipeDTO(updatedRecipe);
     }
 
     public List<RecipeDTO> findRecipeByProductId(String productId) {
         List<Recipe> recipes = recipeRepository.findByIdProductId(UUID.fromString(productId));
         return recipes.stream()
-                .map(RecipeBuilder::toRecipeDTO)
+                .map(recipeBuilder::toRecipeDTO)
                 .collect(Collectors.toList());
     }
 
@@ -82,6 +91,6 @@ public class RecipeService {
 
     public RecipeDTO findRecipeById(RecipeId recipeId) {
         Recipe recipe = recipeRepository.findById(recipeId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Recipe with id " + recipeId + " does not exist"));
-        return RecipeBuilder.toRecipeDTO(recipe);
+        return recipeBuilder.toRecipeDTO(recipe);
     }
 }

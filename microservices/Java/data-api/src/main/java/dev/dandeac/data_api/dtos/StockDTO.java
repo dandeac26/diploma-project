@@ -38,15 +38,21 @@ public class StockDTO {
 
     private String providerName;
 
+    private String packaging;
+
 
     public StockDTO() {}
 
-//    public StockDTO(UUID ingredientId, UUID providerId, Integer quantity, Double price) {
-//        this.ingredientId = ingredientId;
-//        this.providerId = providerId;
-//        this.quantity = quantity;
-//        this.price = price;
-//    }
+    public StockDTO(UUID ingredientId, UUID providerId, Integer quantity, Double price, Integer maxQuantity, String ingredientName, String providerName, String packaging) {
+        this.ingredientId = ingredientId;
+        this.providerId = providerId;
+        this.quantity = quantity;
+        this.price = price;
+        this.maxQuantity = maxQuantity;
+        this.ingredientName = ingredientName;
+        this.providerName = providerName;
+        this.packaging = packaging;
+    }
 
     public StockDTO(UUID ingredientId, UUID providerId, Integer quantity, Double price, Integer maxQuantity, String ingredientName, String providerName) {
         this.ingredientId = ingredientId;

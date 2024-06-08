@@ -21,12 +21,24 @@ public class RecipeDTO {
     @NotNull(message = "Quantity cannot be null")
     private Double quantity;
 
+    private String ingredientMeasurementUnit;
+    private String ingredientName;
+
+
     public RecipeDTO() {}
 
     public RecipeDTO(UUID productId, UUID ingredientId, Double quantity) {
         this.ingredientId = ingredientId;
         this.productId = productId;
         this.quantity = quantity;
+    }
+
+    public RecipeDTO(UUID productId, UUID ingredientId, Double quantity, String ingredientMeasurementUnit, String ingredientName) {
+        this.ingredientId = ingredientId;
+        this.productId = productId;
+        this.quantity = quantity;
+        this.ingredientMeasurementUnit = ingredientMeasurementUnit;
+        this.ingredientName = ingredientName;
     }
 
 }
