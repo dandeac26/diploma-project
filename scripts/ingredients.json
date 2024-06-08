@@ -1,79 +1,79 @@
 [
     {
         "ingredientId":"",
-        "name": "eggs",
+        "name": "Eggs",
         "measurementUnit": "pieces",
         "packaging": "batches"
     },
     {
         "ingredientId":"",
-        "name": "sugar",
+        "name": "Sugar",
         "measurementUnit": "grams",
         "packaging": "batches"
     },
     {
         "ingredientId":"",
-        "name": "salt",
+        "name": "Salt",
         "measurementUnit": "grams",
         "packaging": "bags"
     },
     {
         "ingredientId":"",
-        "name": "flour",
+        "name": "Flour",
         "measurementUnit": "kilograms",
         "packaging": "sacks"
     },
     {
         "ingredientId":"",
-        "name": "butter",
+        "name": "Butter",
         "measurementUnit": "grams",
         "packaging": "blocks"
     },
     {
         "ingredientId":"",
-        "name": "milk",
+        "name": "Milk",
         "measurementUnit": "liters",
         "packaging": "cartons"
     },
     {
         "ingredientId":"",
-        "name": "baking powder",
+        "name": "Baking Powder",
         "measurementUnit": "grams",
         "packaging": "tins"
     },
     {
         "ingredientId":"",
-        "name": "cocoa powder",
+        "name": "Cocoa Powder",
         "measurementUnit": "grams",
         "packaging": "bags"
     },
     {
         "ingredientId":"",
-        "name": "vanilla extract",
+        "name": "Vanilla Extract",
         "measurementUnit": "milliliters",
         "packaging": "bottles"
     },
     {
         "ingredientId":"",
-        "name": "yeast",
+        "name": "Yeast",
         "measurementUnit": "grams",
         "packaging": "sachets"
     },
     {
         "ingredientId":"",
-        "name": "olive oil",
+        "name": "Olive Oil",
         "measurementUnit": "liters",
         "packaging": "bottles"
     },
     {
         "ingredientId":"",
-        "name": "honey",
+        "name": "Honey",
         "measurementUnit": "grams",
         "packaging": "jars"
     },
     {
         "ingredientId":"",
-        "name": "cornstarch",
+        "name": "Cornstarch",
         "measurementUnit": "grams",
         "packaging": "boxes"
     }
