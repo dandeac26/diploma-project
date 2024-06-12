@@ -21,7 +21,6 @@ public class OrderDTO {
     private UUID orderId;
 
     @NotNull(message = "clientId cannot be null")
-    @NotEmpty(message = "clientId cannot be empty")
     private UUID clientId;
 
     // deliveryNeeded can only be Yes/No
