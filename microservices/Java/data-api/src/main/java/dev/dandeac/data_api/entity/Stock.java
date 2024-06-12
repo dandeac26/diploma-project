@@ -14,10 +14,19 @@ import java.util.UUID;
 @Table(name = "stocks_tb")
 public class Stock {
 
-    @Id
-    @UuidGenerator(style=UuidGenerator.Style.RANDOM)
-    @Column(name = "stocks_id")
+    @EmbeddedId
     private StockId id;
+
+    @MapsId("ingredientId")
+    @ManyToOne
+    @JoinColumn(name = "ingredient_id", insertable = false, updatable = false)
+    private Ingredient ingredient;
+
+
+    @MapsId("providerId")
+    @ManyToOne
+    @JoinColumn(name = "provider_id", insertable = false, updatable = false)
+    private Provider provider;
 
     @Column(name = "quantity")
     private Integer quantity;

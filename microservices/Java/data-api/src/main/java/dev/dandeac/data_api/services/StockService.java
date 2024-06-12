@@ -40,7 +40,7 @@ public class StockService {
 
     public StockDTO addStock(StockDTO stockDTO) {
 
-        if (stockRepository.existsByIdProviderIdAndIdIngredientId(stockDTO.getProviderId(), stockDTO.getIngredientId())) {
+        if (stockRepository.existsByIdIngredientIdAndIdProviderId(stockDTO.getIngredientId(), stockDTO.getProviderId())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Stock for product " + stockDTO.getIngredientId() + " already exists");
         }
 
@@ -54,6 +54,8 @@ public class StockService {
         }
 
         Stock stock = stockBuilder.toStock(stockDTO);
+        stock.setIngredient(ingredientService.findById(stockDTO.getIngredientId()));
+        stock.setProvider(providerService.findById(stockDTO.getProviderId()));
         Stock savedStock = stockRepository.save(stock);
         return stockBuilder.toStockDTO(savedStock);
     }
@@ -80,7 +82,7 @@ public class StockService {
         }
 
         Stock stock = stockBuilder.toStock(stockDTO);
-        stock.setId(stockId);
+        stock.setId(new StockId(stockDTO.getIngredientId(), stockDTO.getProviderId()));
         Stock updatedStock = stockRepository.save(stock);
         return stockBuilder.toStockDTO(updatedStock);
     }

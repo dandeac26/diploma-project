@@ -81,4 +81,9 @@ public class ClientService {
         double longitude = client.getLongitude();
         return "https://www.google.com/maps/?q=" + latitude + "," + longitude;
     }
+
+    public Client findClientEntityById(String clientId) {
+        return clientRepository.findById(UUID.fromString(clientId))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Client with id " + clientId + " does not exist"));
+    }
 }

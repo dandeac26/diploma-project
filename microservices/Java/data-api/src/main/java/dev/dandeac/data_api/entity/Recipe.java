@@ -16,6 +16,15 @@ public class Recipe {
     @EmbeddedId
     private RecipeId id;
 
+    @MapsId("productId")
+    @ManyToOne
+    @JoinColumn(name = "product_id", insertable = false, updatable = false)
+    private Product product;
+
+    @MapsId("ingredientId")
+    @ManyToOne
+    @JoinColumn(name = "ingredient_id", insertable = false, updatable = false)
+    private Ingredient ingredient;
 
     @Column(name = "quantity")
     private Double quantity;

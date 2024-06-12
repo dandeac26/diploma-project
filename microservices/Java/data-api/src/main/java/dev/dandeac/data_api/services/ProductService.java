@@ -3,6 +3,7 @@ package dev.dandeac.data_api.services;
 import dev.dandeac.data_api.dtos.ProductDTO;
 import dev.dandeac.data_api.dtos.builders.ProductBuilder;
 import dev.dandeac.data_api.entity.Product;
+import dev.dandeac.data_api.entity.Provider;
 import dev.dandeac.data_api.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,10 +41,17 @@ public class ProductService {
     }
 
     public void deleteProduct(String productId) {
-        if (!productRepository.existsById(UUID.fromString(productId))) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product with id " + productId + " does not exist");
+        try{
+            if (!productRepository.existsById(UUID.fromString(productId))) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product with id " + productId + " does not exist");
+            }
+            productRepository.deleteById(UUID.fromString(productId));
+        } catch (Exception e) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Cannot delete product. It is used in a recipe."
+            );
         }
-        productRepository.deleteById(UUID.fromString(productId));
     }
 
     public ProductDTO updateProduct(String productId, ProductDTO productDTO) {
@@ -67,6 +75,22 @@ public class ProductService {
     }
 
     public void deleteAllProducts() {
-        productRepository.deleteAll();
+        try{
+            productRepository.deleteAll();
+        } catch (Exception e) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Cannot delete products. They are used in a recipe."
+            );
+        }
+    }
+
+    public boolean existsById(UUID productId) {
+        return productRepository.existsById(productId);
+    }
+
+    public Product findById(UUID productId) {
+        return productRepository.findById(productId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product with id " + productId + " does not exist"));
     }
 }

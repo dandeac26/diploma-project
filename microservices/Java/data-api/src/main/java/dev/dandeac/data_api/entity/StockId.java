@@ -1,7 +1,10 @@
 package dev.dandeac.data_api.entity;
 
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,8 +16,12 @@ import java.util.UUID;
 @Embeddable
 public class StockId implements Serializable {
 
+        @Column(name = "ingredient_id")
         private UUID ingredientId;
+
+        @Column(name = "provider_id")
         private UUID providerId;
+
 
         public StockId() {}
 

@@ -1,7 +1,10 @@
 package dev.dandeac.data_api.services;
 
+import dev.dandeac.data_api.dtos.ClientDTO;
 import dev.dandeac.data_api.dtos.OrderDTO;
+import dev.dandeac.data_api.dtos.builders.ClientBuilder;
 import dev.dandeac.data_api.dtos.builders.OrderBuilder;
+import dev.dandeac.data_api.entity.Client;
 import dev.dandeac.data_api.entity.Order;
 import dev.dandeac.data_api.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +19,11 @@ import java.util.stream.Collectors;
 @Service
 public class OrderService {
     private final OrderRepository orderRepository;
-
+    private final ClientService clientService;
     @Autowired
-    public OrderService(OrderRepository orderRepository){
+    public OrderService(OrderRepository orderRepository, ClientService clientService){
         this.orderRepository = orderRepository;
+        this.clientService = clientService;
     }
 
     public List<OrderDTO> findOrders() {
@@ -31,10 +35,14 @@ public class OrderService {
 
     public OrderDTO addOrder(OrderDTO orderDTO) {
 
-//        if (orderRepository.existsByFirmName(orderDTO.getFirmName())) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Order with name " + orderDTO.getFirmName() + " already exists");
-//        }
+        Client client = clientService.findClientEntityById(orderDTO.getClientId().toString());
+        if (client == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Client with id " + orderDTO.getClientId() + " does not exist");
+        }
+
         Order order = OrderBuilder.toOrder(orderDTO);
+        order.setClient(client);
+
         Order savedOrder = orderRepository.save(order);
         return OrderBuilder.toOrderDTO(savedOrder);
     }

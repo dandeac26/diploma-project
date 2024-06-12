@@ -5,6 +5,7 @@ import dev.dandeac.data_api.dtos.builders.IngredientBuilder;
 import dev.dandeac.data_api.entity.Ingredient;
 import dev.dandeac.data_api.repositories.IngredientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -42,10 +43,18 @@ public class IngredientService {
     }
 
     public void deleteIngredient(String ingredientId) {
-        if (!ingredientRepository.existsById(UUID.fromString(ingredientId))) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Ingredient with id " + ingredientId + " does not exist");
+        try{
+            if (!ingredientRepository.existsById(UUID.fromString(ingredientId))) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Ingredient with id " + ingredientId + " does not exist");
+            }
+            ingredientRepository.deleteById(UUID.fromString(ingredientId));
+        } catch (DataIntegrityViolationException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Cannot delete ingredient. It is used in a stock or recipe."
+            );
         }
-        ingredientRepository.deleteById(UUID.fromString(ingredientId));
+
     }
 
     public IngredientDTO updateIngredient(String ingredientId, IngredientDTO ingredientDTO) {
@@ -69,7 +78,14 @@ public class IngredientService {
     }
 
     public void deleteAllIngredients() {
-        ingredientRepository.deleteAll();
+        try {
+            ingredientRepository.deleteAll();
+        } catch (DataIntegrityViolationException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Cannot delete all ingredients. Some are used in stocks or recipes."
+            );
+        }
     }
 
     public boolean existsById(UUID ingredientId) {

@@ -40,10 +40,17 @@ public class ProviderService {
     }
 
     public void deleteProvider(String providerId) {
-        if (!providerRepository.existsById(UUID.fromString(providerId))) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Provider with id " + providerId + " does not exist");
+        try{
+            if (!providerRepository.existsById(UUID.fromString(providerId))) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Provider with id " + providerId + " does not exist");
+            }
+            providerRepository.deleteById(UUID.fromString(providerId));
+        } catch (Exception e) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Cannot delete provider. It is used in a stock."
+            );
         }
-        providerRepository.deleteById(UUID.fromString(providerId));
     }
 
     public ProviderDTO updateProvider(String providerId, ProviderDTO providerDTO) {
@@ -67,7 +74,14 @@ public class ProviderService {
     }
 
     public void deleteAllProviders() {
-        providerRepository.deleteAll();
+        try{
+            providerRepository.deleteAll();
+        } catch (Exception e) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Cannot delete providers. They are used in a stock."
+            );
+        }
     }
 
     public boolean existsById(UUID providerId) {
