@@ -7,6 +7,7 @@ import org.hibernate.annotations.UuidGenerator;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -39,6 +40,10 @@ public class Order {
 
     @Column(name = "price")
     private Double price;
+
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderDetails> orderDetails;
 
     public Order(){}
 

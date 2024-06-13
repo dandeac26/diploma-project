@@ -1,10 +1,12 @@
 package dev.dandeac.data_api.dtos;
 
 import dev.dandeac.data_api.entity.Client;
+import dev.dandeac.data_api.entity.Product;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
@@ -19,49 +21,36 @@ import java.util.UUID;
 public class OrderDetailsDTO {
 
 
+    @NotNull(message = "Order ID cannot be null")
     private UUID orderId;
 
-    private UUID clientId;
+    @NotNull(message = "Product ID cannot be null")
+    private UUID productId;
 
-    private Client client;
+    @NotNull(message = "Quantity ID cannot be null")
+    private Integer quantity;
 
-    private String location;
-
-    private Date deliveryDate;
-
-    private Time deliveryTime;
-
-    private Double price;
+    private Product product;
 
     public OrderDetailsDTO(){}
 
-    public OrderDetailsDTO(UUID orderId, UUID clientId, Client client, String location, Date deliveryDate, Time deliveryTime, Double price) {
+    public OrderDetailsDTO(UUID orderId, UUID productId, Integer quantity) {
         this.orderId = orderId;
-        this.clientId = clientId;
-        this.client = client;
-        this.location = location;
-        this.deliveryDate = deliveryDate;
-        this.deliveryTime = deliveryTime;
-        this.price = price;
+        this.productId = productId;
+        this.quantity = quantity;
     }
 
-    public OrderDetailsDTO(UUID orderId, UUID clientId, String location, Date deliveryDate, Time deliveryTime, Double price) {
-        this.orderId = orderId;
-        this.clientId = clientId;
-        this.location = location;
-        this.deliveryDate = deliveryDate;
-        this.deliveryTime = deliveryTime;
-        this.price = price;
-    }
-    public OrderDetailsDTO(UUID orderId, UUID clientId, Double price) {
-        this.orderId = orderId;
-        this.clientId = clientId;
-        this.price = price;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OrderDetailsDTO that = (OrderDetailsDTO) o;
+        return Objects.equals(orderId, that.orderId) && Objects.equals(productId, that.productId) && Objects.equals(quantity, that.quantity);
     }
 
-    public OrderDetailsDTO(UUID orderId, UUID clientId) {
-        this.orderId = orderId;
-        this.clientId = clientId;
+    @Override
+    public int hashCode() {
+        return Objects.hash(orderId, productId, quantity);
     }
 
 }

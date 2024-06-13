@@ -7,40 +7,30 @@ import lombok.Setter;
 import java.util.Objects;
 import java.util.UUID;
 
+@Setter
 @Getter
 @Entity
 @Table(name = "order_details_tb")
 public class OrderDetails {
-    @Id
-    @Setter
-    @Column(name = "order_id")
-    private UUID orderId;
 
-    @Id
-    @Setter
-    @Column(name = "product_id")
-    private UUID productId;
+    @EmbeddedId
+    private OrderDetailsId id;
 
-    @Setter
     @ManyToOne
     @JoinColumn(name = "order_id", insertable = false, updatable = false)
     private Order order;
 
-    @Setter
     @ManyToOne
     @JoinColumn(name = "product_id", insertable = false, updatable = false)
     private Product product;
 
-    @Setter
     @Column(name = "quantity")
     private Integer quantity;
 
     public OrderDetails(){}
-    public OrderDetails(UUID orderId, UUID productId, Order order, Product product, Integer quantity) {
-        this.orderId = orderId;
-        this.productId = productId;
-        this.order = order;
-        this.product = product;
+
+    public OrderDetails(OrderDetailsId id, Integer quantity) {
+        this.id = id;
         this.quantity = quantity;
     }
 
@@ -49,11 +39,11 @@ public class OrderDetails {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OrderDetails that = (OrderDetails) o;
-        return Objects.equals(orderId, that.orderId) && Objects.equals(productId, that.productId) && Objects.equals(order, that.order) && Objects.equals(product, that.product) && Objects.equals(quantity, that.quantity);
+        return Objects.equals(id, that.id) && Objects.equals(quantity, that.quantity);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(orderId, productId, order, product, quantity);
+        return Objects.hash(id, quantity);
     }
 }

@@ -2,6 +2,7 @@ package dev.dandeac.data_api.dtos;
 
 
 import dev.dandeac.data_api.entity.Client;
+import dev.dandeac.data_api.entity.OrderDetails;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -10,6 +11,7 @@ import lombok.Setter;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -32,7 +34,6 @@ public class OrderDTO {
 
     private Time completionTime;
 
-    @NotNull(message = "price cannot be null")
     @Positive(message = "price must be positive")
     private Double price;
 
@@ -40,6 +41,9 @@ public class OrderDTO {
     private String clientName;
 
     private String clientLocation;
+
+    private List<OrderDetailsDTO> orderDetails;
+
 
 
     public OrderDTO(){}
@@ -62,6 +66,18 @@ public class OrderDTO {
         this.price = price;
         this.clientName = clientName;
         this.clientLocation = clientLocation;
+    }
+
+    public OrderDTO(UUID orderId, UUID clientId, Boolean deliveryNeeded, Date completionDate, Time completionTime, Double price, String clientName, String clientLocation, List<OrderDetailsDTO> orderDetails) {
+        this.orderId = orderId;
+        this.clientId = clientId;
+        this.deliveryNeeded = deliveryNeeded;
+        this.completionDate = completionDate;
+        this.completionTime = completionTime;
+        this.price = price;
+        this.clientName = clientName;
+        this.clientLocation = clientLocation;
+        this.orderDetails = orderDetails;
     }
 
     @Override
