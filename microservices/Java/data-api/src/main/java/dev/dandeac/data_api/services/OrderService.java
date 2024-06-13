@@ -99,6 +99,7 @@ public class OrderService {
         existingOrder.setCompletionTime(orderDTO.getCompletionTime());
 
         existingOrder.setPrice(calculateTotalPrice(existingOrder));
+        existingOrder.setCompleted(orderDTO.getCompleted());
         Order updatedOrder = orderRepository.save(existingOrder);
         return orderBuilder.toOrderDTO(updatedOrder);
     }

@@ -28,12 +28,12 @@ public class OrderBuilder {
         }else
             clientName = order.getClient().getFirmName();
         List<OrderDetailsDTO> orderDetailsDTOs = toOrderDetailsDTOList(order.getOrderDetails());
-        return new OrderDTO(order.getOrderId(), order.getClientId(), order.getDeliveryNeeded(), order.getCompletionDate(), order.getCompletionTime(), order.getPrice(), clientName, order.getClient().getAddress(), orderDetailsDTOs);
+        return new OrderDTO(order.getOrderId(), order.getClientId(), order.getDeliveryNeeded(), order.getCompletionDate(), order.getCompletionTime(), order.getPrice(), order.getCompleted(), clientName, order.getClient().getAddress(), orderDetailsDTOs);
     }
 
 
     public static Order toOrder(OrderDTO orderDTO) {
-        return new Order(orderDTO.getOrderId(), orderDTO.getClientId(), orderDTO.getDeliveryNeeded(), orderDTO.getCompletionDate(), orderDTO.getCompletionTime(), orderDTO.getPrice());
+        return new Order(orderDTO.getOrderId(), orderDTO.getClientId(), orderDTO.getDeliveryNeeded(), orderDTO.getCompletionDate(), orderDTO.getCompletionTime(), orderDTO.getCompleted());
     }
 
     private List<OrderDetailsDTO> toOrderDetailsDTOList(List<OrderDetails> orderDetailsList) {

@@ -37,6 +37,7 @@ public class OrderDTO {
     @Positive(message = "price must be positive")
     private Double price;
 
+    private Boolean completed;
 
     private String clientName;
 
@@ -48,33 +49,36 @@ public class OrderDTO {
 
     public OrderDTO(){}
 
-    public OrderDTO(UUID orderId, UUID clientId, Boolean deliveryNeeded, Date completionDate, Time completionTime, Double price) {
+    public OrderDTO(UUID orderId, UUID clientId, Boolean deliveryNeeded, Date completionDate, Time completionTime, Double price, Boolean completed) {
         this.orderId = orderId;
         this.clientId = clientId;
         this.deliveryNeeded = deliveryNeeded;
         this.completionDate = completionDate;
         this.completionTime = completionTime;
         this.price = price;
+        this.completed = completed;
     }
 
-    public OrderDTO(UUID orderId, UUID clientId, Boolean deliveryNeeded, Date completionDate, Time completionTime, Double price, String clientName, String clientLocation) {
+    public OrderDTO(UUID orderId, UUID clientId, Boolean deliveryNeeded, Date completionDate, Time completionTime, Double price, Boolean completed, String clientName, String clientLocation) {
         this.orderId = orderId;
         this.clientId = clientId;
         this.deliveryNeeded = deliveryNeeded;
         this.completionDate = completionDate;
         this.completionTime = completionTime;
         this.price = price;
+        this.completed = completed;
         this.clientName = clientName;
         this.clientLocation = clientLocation;
     }
 
-    public OrderDTO(UUID orderId, UUID clientId, Boolean deliveryNeeded, Date completionDate, Time completionTime, Double price, String clientName, String clientLocation, List<OrderDetailsDTO> orderDetails) {
+    public OrderDTO(UUID orderId, UUID clientId, Boolean deliveryNeeded, Date completionDate, Time completionTime, Double price, Boolean completed, String clientName, String clientLocation, List<OrderDetailsDTO> orderDetails) {
         this.orderId = orderId;
         this.clientId = clientId;
         this.deliveryNeeded = deliveryNeeded;
         this.completionDate = completionDate;
         this.completionTime = completionTime;
         this.price = price;
+        this.completed = completed;
         this.clientName = clientName;
         this.clientLocation = clientLocation;
         this.orderDetails = orderDetails;
@@ -85,11 +89,11 @@ public class OrderDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OrderDTO order = (OrderDTO) o;
-        return Objects.equals(orderId, order.orderId) && Objects.equals(clientId, order.clientId) && Objects.equals(deliveryNeeded, order.deliveryNeeded) && Objects.equals(completionDate, order.completionDate) && Objects.equals(completionTime, order.completionTime) && Objects.equals(price, order.price);
+        return Objects.equals(orderId, order.orderId) && Objects.equals(clientId, order.clientId) && Objects.equals(deliveryNeeded, order.deliveryNeeded) && Objects.equals(completionDate, order.completionDate) && Objects.equals(completionTime, order.completionTime) && Objects.equals(price, order.price) && Objects.equals(completed, order.completed);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(orderId, clientId, deliveryNeeded, completionDate, completionTime, price);
+        return Objects.hash(orderId, clientId, deliveryNeeded, completionDate, completionTime, price, completed);
     }
 }
