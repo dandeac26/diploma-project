@@ -21,6 +21,7 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -176,6 +177,20 @@ public class OrderService {
         orderRepository.save(order);
     }
 
+//    public List<OrderDTO> findOrdersByCompletionDate(String completionDate) {
+//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); // Adjust this format to match your date string
+//        Date date = null;
+//        try {
+//            date = new Date(formatter.parse(completionDate).getTime());
+//        } catch (ParseException e) {
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid date format");
+//        }
+//        List<Order> orderList = orderRepository.findOrdersByCompletionDate(date);
+//        return orderList.stream()
+//                .map(orderBuilder::toOrderDTO)
+//                .collect(Collectors.toList());
+//    }
+
     public List<OrderDTO> findOrdersByCompletionDate(String completionDate) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); // Adjust this format to match your date string
         Date date = null;
@@ -186,6 +201,7 @@ public class OrderService {
         }
         List<Order> orderList = orderRepository.findOrdersByCompletionDate(date);
         return orderList.stream()
+                .sorted(Comparator.comparing(Order::getCompletionTime))
                 .map(orderBuilder::toOrderDTO)
                 .collect(Collectors.toList());
     }
