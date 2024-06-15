@@ -12,3 +12,13 @@ services:
       - POSTGRES_USER=bakery
       - POSTGRES_DB=test_bakery_db
     
+
+  # rabbitmq:
+  #   image: rabbitmq:3-management-alpine
+  #   ports:
+  #     - 5672:5672
+  #     - 15672:15672
+  #   environment:
+  #     - RABBITMQ_DEFAULT_USER=bakery
+  #     - RABBITMQ_DEFAULT_PASS=password19
+  #     - deprecated_features.permit.transient_nonexcl_queues = false
