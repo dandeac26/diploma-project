@@ -34,6 +34,12 @@ public class OrderController {
         return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
 
+    @GetMapping("/byDate/{completionDate}")
+    public ResponseEntity<List<OrderDTO>> getOrdersByCompletionDate(@PathVariable String completionDate) {
+        List<OrderDTO> dtos = orderService.findOrdersByCompletionDate(completionDate);
+        return new ResponseEntity<>(dtos, HttpStatus.OK);
+    }
+
     @GetMapping("/{orderId}")
     public ResponseEntity<?> getOrder(@PathVariable String orderId) {
         try {

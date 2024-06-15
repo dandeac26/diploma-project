@@ -17,6 +17,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -171,5 +174,19 @@ public class OrderService {
 
         order.setPrice(calculateTotalPrice(order));
         orderRepository.save(order);
+    }
+
+    public List<OrderDTO> findOrdersByCompletionDate(String completionDate) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); // Adjust this format to match your date string
+        Date date = null;
+        try {
+            date = new Date(formatter.parse(completionDate).getTime());
+        } catch (ParseException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid date format");
+        }
+        List<Order> orderList = orderRepository.findOrdersByCompletionDate(date);
+        return orderList.stream()
+                .map(orderBuilder::toOrderDTO)
+                .collect(Collectors.toList());
     }
 }
