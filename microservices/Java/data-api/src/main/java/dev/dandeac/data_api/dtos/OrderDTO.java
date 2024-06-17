@@ -44,6 +44,8 @@ public class OrderDTO {
 
     private String clientLocation;
 
+    private String clientPhoneNumber;
+
     private List<OrderDetailsDTO> orderDetails;
 
 
@@ -72,7 +74,7 @@ public class OrderDTO {
         this.clientLocation = clientLocation;
     }
 
-    public OrderDTO(UUID orderId, UUID clientId, Boolean deliveryNeeded, Date completionDate, Time completionTime, Double price, Boolean completed, String clientName, String clientLocation, List<OrderDetailsDTO> orderDetails) {
+    public OrderDTO(UUID orderId, UUID clientId, Boolean deliveryNeeded, Date completionDate, Time completionTime, Double price, Boolean completed, String clientName, String clientLocation, String clientPhoneNumber, List<OrderDetailsDTO> orderDetails) {
         this.orderId = orderId;
         this.clientId = clientId;
         this.deliveryNeeded = deliveryNeeded;
@@ -82,6 +84,7 @@ public class OrderDTO {
         this.completed = completed;
         this.clientName = clientName;
         this.clientLocation = clientLocation;
+        this.clientPhoneNumber = clientPhoneNumber;
         this.orderDetails = orderDetails;
     }
 
