@@ -62,7 +62,22 @@ public class OrderService {
         Order order = OrderBuilder.toOrder(orderDTO);
         order.setClient(client);
         order.setPrice(calculateTotalPrice(order));
+
+
         Order savedOrder = orderRepository.save(order);
+//        if(orderDTO.getOrderDetails() == null)
+//            return orderBuilder.toOrderDTO(savedOrder);
+//
+//        for (OrderDetailsDTO orderDetailsDTO : orderDTO.getOrderDetails()) {
+//            Product product = productService
+//                    .findById(orderDetailsDTO.getProductId());
+//            if (product == null) {
+//                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Product with id " + orderDetailsDTO.getProductId() + " does not exist");
+//            }
+//            addOrderDetails(order.getOrderId().toString(), orderDetailsDTO);
+//        }
+
+
         return orderBuilder.toOrderDTO(savedOrder);
     }
 

@@ -21,6 +21,9 @@ with open("recipes.json") as f:
 with open("stocks.json") as f:
     stocks = json.load(f)
 
+with open("orders.json") as f:
+    orders = json.load(f)
+
 ingredient_id_list = []
 provider_id_list = []
 product_id_list = []
@@ -52,8 +55,6 @@ for ingredient in ingredients:
     ingredientId = response.json()["ingredientId"]
     ingredient_id_list.append(ingredientId)
 
-    # print(response.json()["ingredientId"])
-
     # Check the response
     if response.status_code != 201:
         print(
@@ -74,19 +75,11 @@ for provider in providers:
         )
 
 for recipe in recipes:
-    # response = requests.post("http://localhost:8080/recipe", json=recipe)
-    # for the first 10 productIds from the list, create recipe for each ingredient
     for productId in product_id_list[:10]:
         for ingredientId in ingredient_id_list[: random.randint(1, 5)]:
             recipe["productId"] = productId
             recipe["ingredientId"] = ingredientId
             response = requests.post("http://localhost:8080/recipe", json=recipe)
-
-            # Check the response
-            # if response.status_code != 201:
-            #     print(
-            #         f'Failed to create recipe {recipe["productId"]}, {recipe["ingredientId"]}. Status code: {response.status_code}'
-            #     )
 
 
 stock_index = 0
@@ -114,26 +107,20 @@ for ingredient_id in ingredient_id_list[:15]:
                 f'Failed to create stock {stock["ingredientId"]}, {stock["providerId"]}. Status code: {response.status_code}'
             )
         stock_index += 1
-# for stock in stocks:
-# # response = requests.post("http://localhost:8080/stock", json=stock)
-#     count_prov = 1
-#     counter = 0
-#     # for first 10 ingredientIds from the list, create stock for each provider
-#     for ingredient_id in ingredient_id_list[:10]:
-#         counter += 1
-#         if counter % 3 == 0:
-#             count_prov = 2
-#         elif counter % 5 == 0:
-#             count_prov = 3
-#         else:
-#             count_prov = 1
-#         for provider_id in provider_id_list[counter : counter + count_prov]:
-#             stock["providerId"] = provider_id
-#             stock["ingredientId"] = ingredient_id
-#             response = requests.post("http://localhost:8080/stock", json=stock)
 
-# # Check the response
-# if response.status_code != 201:
-#     print(
-#         f'Failed to create stock {stock["ingredientId"]}, {stock["providerId"]}. Status code: {response.status_code}'
-#     )
+
+for client in clients:
+    order = {
+        "clientId": client["clientId"],
+        "completionDate": "2024-06-21",
+        "completionTime": "10:00:00",
+        "price": 0.0,
+        "completed": False,
+    }
+    response = requests.post("http://localhost:8080/orders", json=order)
+
+    # Check the response
+    if response.status_code != 201:
+        print(
+            f'Failed to create order for client {client["clientId"]}. Status code: {response.status_code}'
+        )
