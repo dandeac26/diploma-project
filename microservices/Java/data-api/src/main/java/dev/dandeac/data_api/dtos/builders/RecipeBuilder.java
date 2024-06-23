@@ -5,7 +5,6 @@ import dev.dandeac.data_api.entity.Ingredient;
 import dev.dandeac.data_api.entity.Recipe;
 import dev.dandeac.data_api.entity.RecipeId;
 import dev.dandeac.data_api.services.IngredientService;
-import dev.dandeac.data_api.services.ProviderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

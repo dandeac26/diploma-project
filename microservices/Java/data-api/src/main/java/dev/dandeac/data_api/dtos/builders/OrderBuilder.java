@@ -4,7 +4,6 @@ import dev.dandeac.data_api.dtos.OrderDTO;
 import dev.dandeac.data_api.dtos.OrderDetailsDTO;
 import dev.dandeac.data_api.entity.Order;
 import dev.dandeac.data_api.entity.OrderDetails;
-import dev.dandeac.data_api.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

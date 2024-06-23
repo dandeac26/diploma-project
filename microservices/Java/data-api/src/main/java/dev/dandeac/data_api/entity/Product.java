@@ -16,12 +16,10 @@ import java.util.UUID;
 @Entity
 @Table(name = "products_tb")
 public class Product {
-
     @Id
     @UuidGenerator(style=UuidGenerator.Style.RANDOM)
     @Column(name = "product_id")
     private UUID productId;
-
 
     @Column(name = "name", nullable = false, columnDefinition = "text CHECK (length(name) > 0)", unique = true)
     private String name;

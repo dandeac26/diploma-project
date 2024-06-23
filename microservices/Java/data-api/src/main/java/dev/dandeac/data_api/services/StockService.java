@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 @Service
 public class StockService {
     private final StockRepository stockRepository;
-    // inject providerService and ingredientService
     private final ProviderService providerService;
     private final IngredientService ingredientService;
 
@@ -48,7 +47,6 @@ public class StockService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Ingredient with id " + stockDTO.getIngredientId() + " does not exist");
         }
 
-        // Check if providerId exists
         if (!providerService.existsById(stockDTO.getProviderId())) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Provider with id " + stockDTO.getProviderId() + " does not exist");
         }

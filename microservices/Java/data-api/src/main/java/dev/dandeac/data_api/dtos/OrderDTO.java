@@ -1,11 +1,6 @@
 package dev.dandeac.data_api.dtos;
 
-
-import dev.dandeac.data_api.entity.Client;
-import dev.dandeac.data_api.entity.OrderDetails;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,14 +14,11 @@ import java.util.UUID;
 @Getter
 @Setter
 public class OrderDTO {
-
-
     private UUID orderId;
 
     @NotNull(message = "clientId cannot be null")
     private UUID clientId;
 
-    // deliveryNeeded can only be Yes/No
     @NotNull(message = "deliveryNeeded cannot be null")
     private Boolean deliveryNeeded;
 
@@ -47,8 +39,6 @@ public class OrderDTO {
     private String clientPhoneNumber;
 
     private List<OrderDetailsDTO> orderDetails;
-
-
 
     public OrderDTO(){}
 

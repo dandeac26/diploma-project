@@ -4,8 +4,6 @@ import dev.dandeac.data_api.dtos.RecipeDTO;
 import dev.dandeac.data_api.dtos.builders.RecipeBuilder;
 import dev.dandeac.data_api.entity.Recipe;
 import dev.dandeac.data_api.entity.RecipeId;
-import dev.dandeac.data_api.repositories.IngredientRepository;
-import dev.dandeac.data_api.repositories.ProductRepository;
 import dev.dandeac.data_api.repositories.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,6 +1,5 @@
 package dev.dandeac.data_api.dtos;
 
-import dev.dandeac.data_api.entity.StockId;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -18,8 +17,6 @@ public class StockDTO {
     @NotNull(message = "Provider ID cannot be null")
     private UUID providerId;
 
-
-
     @NotNull(message = "Quantity cannot be null")
     @Positive(message = "Quantity must be positive")
     private Integer quantity;
@@ -32,7 +29,6 @@ public class StockDTO {
     @Positive(message = "Max Quantity must be positive")
 
     private Integer maxQuantity;
-
 
     private String ingredientName;
 

@@ -1,9 +1,7 @@
 package dev.dandeac.data_api.services;
 
-import dev.dandeac.data_api.dtos.ClientDTO;
 import dev.dandeac.data_api.dtos.OrderDTO;
 import dev.dandeac.data_api.dtos.OrderDetailsDTO;
-import dev.dandeac.data_api.dtos.builders.ClientBuilder;
 import dev.dandeac.data_api.dtos.builders.OrderBuilder;
 import dev.dandeac.data_api.dtos.builders.OrderDetailsBuilder;
 import dev.dandeac.data_api.entity.Client;
@@ -63,20 +61,7 @@ public class OrderService {
         order.setClient(client);
         order.setPrice(calculateTotalPrice(order));
 
-
         Order savedOrder = orderRepository.save(order);
-//        if(orderDTO.getOrderDetails() == null)
-//            return orderBuilder.toOrderDTO(savedOrder);
-//
-//        for (OrderDetailsDTO orderDetailsDTO : orderDTO.getOrderDetails()) {
-//            Product product = productService
-//                    .findById(orderDetailsDTO.getProductId());
-//            if (product == null) {
-//                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Product with id " + orderDetailsDTO.getProductId() + " does not exist");
-//            }
-//            addOrderDetails(order.getOrderId().toString(), orderDetailsDTO);
-//        }
-
 
         return orderBuilder.toOrderDTO(savedOrder);
     }
@@ -96,22 +81,10 @@ public class OrderService {
         orderRepository.deleteById(UUID.fromString(orderId));
     }
 
-//    public OrderDTO updateOrder(String orderId, OrderDTO orderDTO) {
-//        if (!orderRepository.existsById(UUID.fromString(orderId))) {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Order with id " + orderId + " does not exist");
-//        }
-//
-//        Order order = OrderBuilder.toOrder(orderDTO);
-//        order.setOrderId(UUID.fromString(orderId));
-//        order.setPrice(calculateTotalPrice(order));
-//        Order updatedOrder = orderRepository.save(order);
-//        return orderBuilder.toOrderDTO(updatedOrder);
-//    }
     public OrderDTO updateOrder(String orderId, OrderDTO orderDTO) {
         Order existingOrder = orderRepository.findById(UUID.fromString(orderId))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Order with id " + orderId + " does not exist"));
 
-        // Update the fields of the existing order instead of replacing the order
         existingOrder.setClientId(orderDTO.getClientId());
         existingOrder.setDeliveryNeeded(orderDTO.getDeliveryNeeded());
         existingOrder.setCompletionDate(orderDTO.getCompletionDate());
@@ -192,23 +165,9 @@ public class OrderService {
         orderRepository.save(order);
     }
 
-//    public List<OrderDTO> findOrdersByCompletionDate(String completionDate) {
-//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); // Adjust this format to match your date string
-//        Date date = null;
-//        try {
-//            date = new Date(formatter.parse(completionDate).getTime());
-//        } catch (ParseException e) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid date format");
-//        }
-//        List<Order> orderList = orderRepository.findOrdersByCompletionDate(date);
-//        return orderList.stream()
-//                .map(orderBuilder::toOrderDTO)
-//                .collect(Collectors.toList());
-//    }
-
     public List<OrderDTO> findOrdersByCompletionDate(String completionDate) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); // Adjust this format to match your date string
-        Date date = null;
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date date;
         try {
             date = new Date(formatter.parse(completionDate).getTime());
         } catch (ParseException e) {

@@ -3,7 +3,6 @@ package dev.dandeac.data_api.services;
 import dev.dandeac.data_api.dtos.ProductDTO;
 import dev.dandeac.data_api.dtos.builders.ProductBuilder;
 import dev.dandeac.data_api.entity.Product;
-import dev.dandeac.data_api.entity.Provider;
 import dev.dandeac.data_api.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

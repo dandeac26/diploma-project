@@ -1,13 +1,9 @@
 package dev.dandeac.data_api.dtos;
 
-
-import jakarta.persistence.UniqueConstraint;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 
 import java.util.Objects;
