@@ -70,18 +70,6 @@ public class ClientService {
         clientRepository.deleteAll();
     }
 
-    public String getWazeUrl(Client client) {
-        double latitude = client.getLatitude();
-        double longitude = client.getLongitude();
-        return "https://waze.com/ul?ll=" + latitude + "," + longitude + "&navigate=yes";
-    }
-
-    public String getGoogleMapsUrl(Client client) {
-        double latitude = client.getLatitude();
-        double longitude = client.getLongitude();
-        return "https://www.google.com/maps/?q=" + latitude + "," + longitude;
-    }
-
     public Client findClientEntityById(String clientId) {
         return clientRepository.findById(UUID.fromString(clientId))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Client with id " + clientId + " does not exist"));

@@ -1,6 +1,8 @@
 package dev.dandeac.data_api.dtos;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,9 +38,14 @@ public class ClientDTO {
 
     private String address;
 
+    // In Client.java
+    @NotNull(message = "Type cannot be null")
+    private ClientType type;
+
+
     public ClientDTO(){}
 
-    public ClientDTO(UUID clientId, String firmName, String contactPerson, String phoneNumber, String location, Double latitude, Double longitude, String address) {
+    public ClientDTO(UUID clientId, String firmName, String contactPerson, String phoneNumber, String location, Double latitude, Double longitude, String address, ClientType type) {
         this.clientId = clientId;
         this.firmName = firmName;
         this.contactPerson = contactPerson;
@@ -47,6 +54,7 @@ public class ClientDTO {
         this.latitude = latitude;
         this.longitude = longitude;
         this.address = address;
+        this.type = type;
     }
 
     @Override
@@ -60,5 +68,11 @@ public class ClientDTO {
     @Override
     public int hashCode() {
         return Objects.hash(firmName, phoneNumber);
+    }
+
+    public enum ClientType {
+        SPECIAL,
+        REGULAR,
+        KINDERGARTEN
     }
 }

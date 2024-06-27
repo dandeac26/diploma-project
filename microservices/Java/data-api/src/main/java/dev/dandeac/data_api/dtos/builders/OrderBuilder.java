@@ -27,7 +27,7 @@ public class OrderBuilder {
         }else
             clientName = order.getClient().getFirmName();
         List<OrderDetailsDTO> orderDetailsDTOs = toOrderDetailsDTOList(order.getOrderDetails());
-        return new OrderDTO(order.getOrderId(), order.getClientId(), order.getDeliveryNeeded(), order.getCompletionDate(), order.getCompletionTime(), order.getPrice(), order.getCompleted(), clientName, order.getClient().getAddress(), order.getClient().getPhoneNumber(), orderDetailsDTOs);
+        return new OrderDTO(order.getOrderId(), order.getClientId(), order.getDeliveryNeeded(), order.getCompletionDate(), order.getCompletionTime(), order.getPrice(), order.getCompleted(), clientName, order.getClient().getAddress(), order.getClient().getPhoneNumber(), order.getClient().getType(), orderDetailsDTOs);
     }
 
 

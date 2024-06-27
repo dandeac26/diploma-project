@@ -1,10 +1,8 @@
 package dev.dandeac.data_api.entity;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import dev.dandeac.data_api.dtos.ClientDTO;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
@@ -44,6 +42,10 @@ public class Client {
     @Column(name = "address")
     private String address;
 
+    @Column(name = "type")
+    @Enumerated(EnumType.STRING)
+    private ClientDTO.ClientType type;
+
     public Client(){}
 
     public Client(UUID clientId, String firmName, String contactPerson, String phoneNumber, String location, Double latitude, Double longitude, String address) {
@@ -57,7 +59,7 @@ public class Client {
         this.address = address;
     }
 
-    public Client(String firmName, String contactPerson, String phoneNumber, String location, Double latitude, Double longitude, String address) {
+    public Client(String firmName, String contactPerson, String phoneNumber, String location, Double latitude, Double longitude, String address, ClientDTO.ClientType type) {
         this.firmName = firmName;
         this.contactPerson = contactPerson;
         this.phoneNumber = phoneNumber;
@@ -65,6 +67,7 @@ public class Client {
         this.latitude = latitude;
         this.longitude = longitude;
         this.address = address;
+        this.type = type;
     }
 
     @Override
