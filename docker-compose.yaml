@@ -13,6 +13,36 @@ services:
       - POSTGRES_DB=test_bakery_db
     
 
+  postgres-esp:
+      image: postgres:latest
+      container_name: postgres_db
+      ports:
+        - "5433:5432" 
+      environment:
+        POSTGRES_DB: sensor_db
+        POSTGRES_USER: bakery
+        POSTGRES_PASSWORD: password19
+      volumes:
+        - ./postgres_data:/var/lib/postgresql/data
+
+  mosquitto:
+    image: eclipse-mosquitto:latest
+    container_name: mosquitto_broker
+    ports:
+      - "1883:1883"  # MQTT port
+      - "9001:9001"  # WebSockets port (optional, for MQTT over WebSockets)
+    volumes:
+      - ./mosquitto/config:/mosquitto/config  # Configurations
+      - ./mosquitto/data:/mosquitto/data      # Persistent data
+      - ./mosquitto/log:/mosquitto/log        # Logs
+    networks:
+      - mqtt_network
+    restart: unless-stopped
+
+networks:
+  mqtt_network:
+    driver: bridge
+
   # rabbitmq:
   #   image: rabbitmq:3-management-alpine
   #   ports:
