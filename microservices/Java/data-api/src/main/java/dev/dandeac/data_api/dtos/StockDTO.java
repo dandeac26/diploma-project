@@ -27,8 +27,11 @@ public class StockDTO {
 
     @NotNull(message = "Max Quantity cannot be null")
     @Positive(message = "Max Quantity must be positive")
-
     private Integer maxQuantity;
+
+    @NotNull(message = "Quantity per package cannot be null")
+    @Positive(message = "Quantity per package must be positive")
+    private Integer quantityPerPackage;
 
     private String ingredientName;
 
