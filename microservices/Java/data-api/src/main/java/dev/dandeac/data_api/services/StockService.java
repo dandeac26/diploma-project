@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -99,5 +100,41 @@ public class StockService {
     public StockDTO findStockById(StockId stockId) {
         Stock stock = stockRepository.findById(stockId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Stock with id " + stockId + " does not exist"));
         return stockBuilder.toStockDTO(stock);
+    }
+
+    public List<StockDTO> findUniqueStocks() {
+        List<Stock> stocks = stockRepository.findAll();
+        return stocks.stream()
+                .collect(Collectors.groupingBy(stock -> stock.getIngredient().getIngredientId()))
+                .entrySet().stream()
+                .map(entry -> {
+                    StockDTO dto = new StockDTO();
+                    dto.setIngredientId(entry.getKey());
+                    // Fetching ingredient name
+                    String ingredientName = ingredientService.findById(entry.getKey()).getName();
+                    dto.setIngredientName(ingredientName);
+
+                    int totalQuantity = entry.getValue().stream().mapToInt(Stock::getQuantity).sum();
+                    int totalMaxQuantity = entry.getValue().stream().mapToInt(Stock::getMaxQuantity).sum();
+                    double averageQuantityPerPackage = entry.getValue().stream().mapToInt(Stock::getQuantityPerPackage).average().orElse(0);
+                    double averagePrice = entry.getValue().stream().mapToDouble(Stock::getPrice).average().orElse(0);
+
+                    // Determining the most frequent packaging
+                    String mostFrequentPackaging = entry.getValue().stream()
+                            .collect(Collectors.groupingBy(stock -> stock.getIngredient().getPackaging(), Collectors.counting()))
+                            .entrySet().stream()
+                            .max(Map.Entry.comparingByValue())
+                            .map(Map.Entry::getKey)
+                            .orElse(null);
+
+                    dto.setQuantity(totalQuantity);
+                    dto.setMaxQuantity(totalMaxQuantity);
+                    dto.setQuantityPerPackage((int) averageQuantityPerPackage);
+                    dto.setPrice(averagePrice);
+                    dto.setPackaging(mostFrequentPackaging);
+
+                    return dto;
+                })
+                .collect(Collectors.toList());
     }
 }

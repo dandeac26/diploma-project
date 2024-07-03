@@ -27,6 +27,12 @@ public class StockController {
         this.stockService = stockService;
     }
 
+    @GetMapping("/unique-stocks")
+    public ResponseEntity<List<StockDTO>> getUniqueStocks() {
+        List<StockDTO> uniqueStocks = stockService.findUniqueStocks();
+        return new ResponseEntity<>(uniqueStocks, HttpStatus.OK);
+    }
+
     @GetMapping()
     public ResponseEntity<Map<UUID, List<StockDTO>>> getStocks() {
         List<StockDTO> dtos = stockService.findStocks();
