@@ -110,7 +110,6 @@ public class StockService {
                 .map(entry -> {
                     StockDTO dto = new StockDTO();
                     dto.setIngredientId(entry.getKey());
-                    // Fetching ingredient name
                     String ingredientName = ingredientService.findById(entry.getKey()).getName();
                     dto.setIngredientName(ingredientName);
 
@@ -119,7 +118,6 @@ public class StockService {
                     double averageQuantityPerPackage = entry.getValue().stream().mapToInt(Stock::getQuantityPerPackage).average().orElse(0);
                     double averagePrice = entry.getValue().stream().mapToDouble(Stock::getPrice).average().orElse(0);
 
-                    // Determining the most frequent packaging
                     String mostFrequentPackaging = entry.getValue().stream()
                             .collect(Collectors.groupingBy(stock -> stock.getIngredient().getPackaging(), Collectors.counting()))
                             .entrySet().stream()

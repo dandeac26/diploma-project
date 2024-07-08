@@ -11,8 +11,8 @@
 	<groupId>dev.dandeac</groupId>
 	<artifactId>data-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>products-api</name>
-	<description>Products API microservice</description>
+	<name>data-api</name>
+	<description>Data API microservice</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
