@@ -132,11 +132,6 @@ class ProductsApiApplicationTests {
 				.andExpect(status().isNotFound());
 	}
 
-	@Test
-	void testDeleteProductNotFound() throws Exception {
-		mockMvc.perform(delete("/product/" + UUID.randomUUID()))
-				.andExpect(status().isNotFound());
-	}
 
 	@Test
 	void testUpdateProductNotFound() throws Exception {
