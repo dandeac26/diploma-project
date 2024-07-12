@@ -1,21 +1,22 @@
 version: '3.9'
 
 services:
-  postgres:
+  bakery-db:
     image: postgres:14-alpine
+    container_name: bakery-db
     ports:
       - 5432:5432
-    volumes:
-      - ~/apps/postgres:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=password19
       - POSTGRES_USER=bakery
       - POSTGRES_DB=test_bakery_db
+    volumes:
+      - ./bakery_data:/var/lib/postgresql/data
     
-
-  postgres-esp:
+  sensor-db:
       image: postgres:latest
-      container_name: postgres_db
+      container_name: sensor-db
+      restart: always
       ports:
         - "5433:5432" 
       environment:
@@ -23,32 +24,73 @@ services:
         POSTGRES_USER: bakery
         POSTGRES_PASSWORD: password19
       volumes:
-        - ./postgres_data:/var/lib/postgresql/data
+        - ./sensor_data:/var/lib/postgresql/data
 
-  mosquitto:
+  mqtt-server:
     image: eclipse-mosquitto:latest
-    container_name: mosquitto_broker
+    container_name: mqtt-server
     ports:
-      - "1883:1883"  # MQTT port
-      - "9001:9001"  # WebSockets port (optional, for MQTT over WebSockets)
+      - "1883:1883"  
+      - "9001:9001"  
     volumes:
-      - ./mosquitto/config:/mosquitto/config  # Configurations
-      - ./mosquitto/data:/mosquitto/data      # Persistent data
-      - ./mosquitto/log:/mosquitto/log        # Logs
-    networks:
-      - mqtt_network
+      - ./mosquitto/config:/mosquitto/config  
+      - ./mosquitto/data:/mosquitto/data     
+      - ./mosquitto/log:/mosquitto/log       
     restart: unless-stopped
 
-networks:
-  mqtt_network:
-    driver: bridge
+  data-api:
+    container_name: data-api
+    restart: always
+    build: 
+      context: ./microservices/Java/data-api
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://bakery-db:5432/test_bakery_db
+      SPRING_DATASOURCE_USERNAME: bakery
+      SPRING_DATASOURCE_PASSWORD: password19
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    depends_on:
+      - bakery-db
 
-  # rabbitmq:
-  #   image: rabbitmq:3-management-alpine
-  #   ports:
-  #     - 5672:5672
-  #     - 15672:15672
-  #   environment:
-  #     - RABBITMQ_DEFAULT_USER=bakery
-  #     - RABBITMQ_DEFAULT_PASS=password19
-  #     - deprecated_features.permit.transient_nonexcl_queues = false
+  websocket-service:
+    container_name: websocket-service
+    restart: always
+    build: 
+      context: ./microservices/Python/orders-management/test2
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - DATA_API_HOST=data-api
+    depends_on:
+      - data-api
+
+  sensor-service:
+    container_name: sensor-service
+    restart: always
+    build: 
+      context: ./microservices/Python/orders-management/pythonMicroservice
+      dockerfile: Dockerfile
+    ports:
+      - "8001:8001"
+    environment:
+      - DB_HOST=sensor-db
+      - DB_PORT=5432
+      - DB_USER=bakery
+      - DB_PASSWORD=password19
+      - WS_HOST=websocket-service
+      - WS_PORT=8000
+      - MQTT_HOST=mqtt-server
+      - TEMPERATURE_THRESHOLD=29
+      - HUMIDITY_THRESHOLD=70
+    depends_on:
+      - sensor-db
+      - data-api
+      - websocket-service
+      - mqtt-server
+
+volumes:
+  bakery_data:
+  sensor_data:

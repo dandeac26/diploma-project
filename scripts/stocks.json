@@ -1,98 +1,116 @@
 [
-    {
-        "quantity": 100,
-        "price": 23,
-        "maxQuantity": 400
-    },
-    {
-        "quantity": 200,
-        "price": 18,
-        "maxQuantity": 330
-        
-    },
-    {
-        "quantity": 300,
-        "price": 15,
-        "maxQuantity": 500
-    },
-    {
-        "quantity": 990,
-        "price": 10,
-        "maxQuantity": 1000
-    },
-    {
-        "quantity": 1000,
-        "price": 8.2,
-        "maxQuantity": 1000
-    },
-    {
-        "quantity": 324,
-        "price": 6.55,
-        "maxQuantity": 676
-    },
-    {
-        "quantity": 555,
-        "price": 53.4,
-        "maxQuantity": 888
-    },
-    {
-        "quantity": 922,
-        "price": 4.2,
-        "maxQuantity": 1000
-    },
-    {
-        "quantity": 98,
-        "price": 7.55,
-        "maxQuantity": 1000
-    },
-    {
-        "quantity": 595,
-        "price": 553.46,
-        "maxQuantity": 1000
-    },
-    {
-        "quantity": 129,
-        "price": 22.22,
-        "maxQuantity": 1000
-    },
-    {
-        "quantity": 500,
-        "price": 10,
-        "maxQuantity": 505
-    },
-    {
-        "quantity": 1000,
-        "price": 8.2,
-        "maxQuantity": 1000
-    },
-    {
-        "quantity": 324,
-        "price": 6.55,
-        "maxQuantity": 600
-    },
-    {
-        "quantity": 555,
-        "price": 53.4,
-        "maxQuantity": 700
-    },
-    {
-        "quantity": 922,
-        "price": 4.2,
-        "maxQuantity": 1000
-    },
-    {
-        "quantity": 98,
-        "price": 7.55,
-        "maxQuantity": 300
-    },
-    {
-        "quantity": 595,
-        "price": 553.46,
-        "maxQuantity": 1000
-    },
-    {
-        "quantity": 129,
-        "price": 22.22,
-        "maxQuantity": 300
-    }
+  {
+    "quantity": 100,
+    "price": 23,
+    "maxQuantity": 400,
+    "quantityPerPackage": 3
+  },
+  {
+    "quantity": 200,
+    "price": 18,
+    "maxQuantity": 330,
+    "quantityPerPackage": 8
+  },
+  {
+    "quantity": 300,
+    "price": 15,
+    "maxQuantity": 500,
+    "quantityPerPackage": 9
+  },
+  {
+    "quantity": 990,
+    "price": 10,
+    "maxQuantity": 1000,
+    "quantityPerPackage": 3
+  },
+  {
+    "quantity": 1000,
+    "price": 8.2,
+    "maxQuantity": 1000,
+    "quantityPerPackage": 3
+  },
+  {
+    "quantity": 324,
+    "price": 6.55,
+    "maxQuantity": 676,
+    "quantityPerPackage": 2
+  },
+  {
+    "quantity": 555,
+    "price": 53.4,
+    "maxQuantity": 888,
+    "quantityPerPackage": 5
+  },
+  {
+    "quantity": 922,
+    "price": 4.2,
+    "maxQuantity": 1000,
+    "quantityPerPackage": 8
+  },
+  {
+    "quantity": 98,
+    "price": 7.55,
+    "maxQuantity": 1000,
+    "quantityPerPackage": 6
+  },
+  {
+    "quantity": 595,
+    "price": 553.46,
+    "maxQuantity": 1000,
+    "quantityPerPackage": 2
+  },
+  {
+    "quantity": 129,
+    "price": 22.22,
+    "maxQuantity": 1000,
+    "quantityPerPackage": 3
+  },
+  {
+    "quantity": 500,
+    "price": 10,
+    "maxQuantity": 505,
+    "quantityPerPackage": 1
+  },
+  {
+    "quantity": 1000,
+    "price": 8.2,
+    "maxQuantity": 1000,
+    "quantityPerPackage": 4
+  },
+  {
+    "quantity": 324,
+    "price": 6.55,
+    "maxQuantity": 600,
+    "quantityPerPackage": 3
+  },
+  {
+    "quantity": 555,
+    "price": 53.4,
+    "maxQuantity": 700,
+    "quantityPerPackage": 5
+  },
+  {
+    "quantity": 922,
+    "price": 4.2,
+    "maxQuantity": 1000,
+    "quantityPerPackage": 3
+  },
+  {
+    "quantity": 98,
+    "price": 7.55,
+    "maxQuantity": 300,
+    "quantityPerPackage": 4
+  },
+  {
+    "quantity": 595,
+    "price": 553.46,
+    "maxQuantity": 1000,
+    "quantityPerPackage": 7
+  },
+  {
+    "quantity": 129,
+    "price": 22.22,
+    "maxQuantity": 300,
+    "quantityPerPackage": 8
+  }
 ]
