@@ -12,31 +12,7 @@ services:
       - POSTGRES_DB=test_bakery_db
     volumes:
       - ./bakery_data:/var/lib/postgresql/data
-    
-  sensor-db:
-      image: postgres:latest
-      container_name: sensor-db
-      restart: always
-      ports:
-        - "5433:5432" 
-      environment:
-        POSTGRES_DB: sensor_db
-        POSTGRES_USER: bakery
-        POSTGRES_PASSWORD: password19
-      volumes:
-        - ./sensor_data:/var/lib/postgresql/data
-
-  mqtt-server:
-    image: eclipse-mosquitto:latest
-    container_name: mqtt-server
-    ports:
-      - "1883:1883"  
-      - "9001:9001"  
-    volumes:
-      - ./mosquitto/config:/mosquitto/config  
-      - ./mosquitto/data:/mosquitto/data     
-      - ./mosquitto/log:/mosquitto/log       
-    restart: unless-stopped
+  
 
   data-api:
     container_name: data-api
@@ -67,30 +43,5 @@ services:
     depends_on:
       - data-api
 
-  sensor-service:
-    container_name: sensor-service
-    restart: always
-    build: 
-      context: ./microservices/Python/orders-management/pythonMicroservice
-      dockerfile: Dockerfile
-    ports:
-      - "8001:8001"
-    environment:
-      - DB_HOST=sensor-db
-      - DB_PORT=5432
-      - DB_USER=bakery
-      - DB_PASSWORD=password19
-      - WS_HOST=websocket-service
-      - WS_PORT=8000
-      - MQTT_HOST=mqtt-server
-      - TEMPERATURE_THRESHOLD=29
-      - HUMIDITY_THRESHOLD=70
-    depends_on:
-      - sensor-db
-      - data-api
-      - websocket-service
-      - mqtt-server
-
 volumes:
   bakery_data:
-  sensor_data:
